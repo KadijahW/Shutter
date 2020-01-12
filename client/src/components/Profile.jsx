@@ -15,7 +15,8 @@ class Profile extends React.Component {
             message: "",
             caption: "",
             tags: "",
-            profileImage: ""
+            profileImage: "",
+            hideNewImage: true
         }
     }
     getAllUserPictures = async () => {
@@ -95,6 +96,8 @@ class Profile extends React.Component {
         }
     }
 
+    
+
     handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -116,10 +119,56 @@ class Profile extends React.Component {
         }
       }
 
+      profileImageForm = async (e) => {
+          e.preventDefault();
+          
+
+          this.setState({
+              hideNewImage: false
+          })
+
+      }
+
+      changeProfileImage = async (e) => {
+        const {username, imageURL} = this.state;
+        try {
+            const res = await axios.patch('http://localhost:3001/images', {username: username, image_url: imageURL})
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+      handleSubmitProfile = async (e) => {
+        e.preventDefault();
+    
+        const data = new FormData();
+        console.log(data)
+        data.append("image", this.state.imageFile)
+        console.log(data)
+        try{ 
+          const res = await axios.post('http://localhost:3001/upload', data)
+          console.log(res.data)
+          this.setState({
+            imageURL: res.data.imageUrl,
+            message: "Image uploaded!"
+          })
+
+          this.changeProfileImage();
+        }catch (err){ 
+          console.error(err)
+        }
+      }
+       
+
     render() {
         return (
             <div>
                 <img src={this.state.profileImage} alt =""></img>
+                <button onClick={this.profileImageForm}>Change Image</button>
+                <form id="newImageForm" onSubmit={this.handleSubmitProfile}>
+                    <input type="file" onChange={this.handleFileInput} required/>
+                    <input type="submit" value="Upload"/>
+                </form>
                 <button onClick={this.getProfileImage}>GetProfileImage</button>
                 <h1>Welcome {this.props.userName}</h1>
                 <form onSubmit={this.handleSubmit}>

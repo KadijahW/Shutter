@@ -1,5 +1,7 @@
 import React from "react"
 import {Route} from 'react-router-dom'
+import './CSS/Signup.css';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class SignUp extends React.Component{
     constructor(){
@@ -13,7 +15,8 @@ class SignUp extends React.Component{
     handleFormSubmit = (e) =>{
         e.preventDefault()
         console.log("clicked")
-        this.props.signUp(this.state.username)
+        this.props.history.push("/")
+        this.props.signUp(this.state.username, this.state.email)
 
     }
 
@@ -32,34 +35,50 @@ class SignUp extends React.Component{
     }
 
     
-    
-    
     render(){
         let {email, username} = this.state
 
         return (
-            <div>
-                <h1>Sign Up</h1>
+           
+            <div className= "createAcc">
+            
+                <h1>Create Account </h1>
+                <br/>
+
                 <form onSubmit = {this.handleFormSubmit}>
-                    <label htmlFor = "email">Email Address </label>
-                    <input  
-                    id = "email" 
+                    
+                <i  className="fas fa-user icon"></i>
+                <label htmlFor = "name "> </label>
+                    <input className="signupForm"
+                    id = "name" 
                     type = "text"
-                    value = {email}
-                    onChange = {this.handleEmailChange} 
-                    placeholder = "enter email" 
+                    // value = {name}
+                    placeholder = "Enter Name" 
                     required = "required"/>
                     <br/>
-                    <label htmlFor = "username">User Name </label>
-                    <input  
+
+                    <i  className="fas fa-envelope icon"></i>
+                    <label htmlFor = "email">  </label>
+                    <input  className="signupForm"
+                    id = "email" 
+                    type = "email"
+                    value = {email}
+                    onChange = {this.handleEmailChange} 
+                    placeholder =  "Enter Email" 
+                    required = "required"/>
+                    <br/> 
+
+                    <i  className="fas fa-check icon" ></i>
+                    <label htmlFor = "username"> </label>
+                    <input  className="signupForm"
                     id = "username" 
                     type = "text" 
                     value = {username}
                     onChange = {this.handleUserNameChange}
-                    placeholder = "enter UserName" 
+                    placeholder = "Enter Username" 
                     required = "required"/>
                     <br/>
-                    <button>Submit</button>
+                    <button id="createButton"> Create Account </button>
                 </form>
             </div>
         )

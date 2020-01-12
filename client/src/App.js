@@ -1,53 +1,54 @@
 import React from 'react';
-import {Link,Route,Switch, Redirect} from 'react-router-dom'
+import {Link,Route,Switch,Redirect} from 'react-router-dom'
 import './App.css';
 import AuthForm from "./components/AuthForm"
 import SignUp from "./components/Signup"
 import HomePage from "./components/HomePage"
 import Profile from "./components/Profile"
 import imageDisplay from './components/DisplayProfile';
-
+import Menu from "./components/hamburgerMenu"
 
 class App extends React.Component {
   constructor(){
     super()
     this.state = {
       userLoggedIn: false,
-      userName: ""
+      userName: "",
+      email: ""
     }
   }
-
-
-
-  
   
   logIn = () =>{
     this.setState({
       userLoggedIn: true
     })
-
   }
 
-  signUp = (userName) =>{
+  signOut = () =>{
+    this.setState({
+      userLoggedIn: false
+    })
+  }
+
+
+  signUp = (userName, email) =>{
     this.setState({
       userLoggedIn: true,
-      userName: userName
+      userName: userName,
+      email: email
     })
+
   }
     
   render(){
       let {userLoggedIn} = this.state
 
-      
       if (!userLoggedIn){
         return(
         <div className = "App">
         
-          <nav>
-            <Link to = "/">Slide</Link>{" "}
-            <Link to = "/SignUp">Sign Up</Link>
-          </nav>
-
+        <h1 className="appName"> Shutter </h1>
+            
           <Switch>
           {/* home page route for when the user is not logged in*/}
           <Route exact path = "/"   
@@ -63,21 +64,23 @@ class App extends React.Component {
           <Route path = "/SignUp"  render = {
             (routeProps) =>{
               return(
-                <SignUp signUp = {this.signUp}/>
+                <SignUp history = {routeProps.history} signUp = {this.signUp}/>
               )
             }
           }/>
+          <Redirect to = "/" />
           </Switch>
-        </div>
+          </div>
         )
-      }else{
+              
+        }else{
       
       return(
         <div className = "App">
           <nav>
-            <Link to = "/">Slide</Link> {" "}
+            <Link to = "/">Shutter</Link> {" "}
+            <Menu signOut = {this.signOut}/>
           </nav>
-              
             <Switch>
               
               <Route path = "/profile" render = {
@@ -90,7 +93,10 @@ class App extends React.Component {
               <Route path = "/" render = {
                 (routeProps) =>{
                   return(
-                    <HomePage userName = {this.state.userName}/>
+                    
+                    <HomePage userName = {this.state.userName}
+                    email = {this.state.email}/>
+
                   )
                 }
               }/>

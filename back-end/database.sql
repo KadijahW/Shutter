@@ -69,5 +69,5 @@ INSERT INTO comments (comment, image_id, commentors_name)
            ('Can you do this to me?', 3, 'BriahanaMaugé'),
            ('Who is this?', 4, 'KadijahWilson');
 
-
-SELECT profileImage FROM users WHERE username = 'PeterFiorentino';
+UPDATE users SET profileImage = 'https://advancelocal-adapter-image-uploads.s3.amazonaws.com/image.silive.com/home/silive-media/width2048/img/entertainment_impact_music/photo/brevity-hip-hop-144b5f51835b7b4c.jpg' WHERE username = 'PeterFiorentino';
+SELECT * FROM users;

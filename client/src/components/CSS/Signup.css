@@ -1,0 +1,48 @@
+.createAcc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
+  border: 6px solid;
+background-color: #5BB2B1 ;
+width: 65%;
+margin-top: 50px;
+margin-left: 18%;
+}
+
+.createAcc > h1{
+  text-decoration: underline;
+}
+
+.signupForm {
+  width: 25%;
+  color: currentColor;
+  width: 100%;
+  border: 2;
+  border-color: #36152b;
+  margin: 0;
+  display: block;
+  padding: 6px 0 7px;
+  background: none;
+  text-align: center;
+}
+
+#createButton {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: #36152b;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.icon {
+  position: absolute;
+  padding: 8px;
+  min-width: 5vh;
+}

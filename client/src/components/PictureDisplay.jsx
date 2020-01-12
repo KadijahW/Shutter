@@ -1,28 +1,41 @@
 import React from 'react';
 import Picture from './Picture';
-// import axios from 'axios';
-
-// hashtag()
 
 const PictureDisplay = (props) => {
-    // console.log(props)
-    // console.log('prop', props.getHashtags)
+    let properHashtag = [];
+    let filteredHashtag = "";
     return (
         props.pictures.map((picture) => {
-        //    props.getHashtags(picture.id)
-            return (
-                <Picture url={picture.image_url}
-                    key={picture.id}
-                    alt={picture.alt}
-                    caption={picture.caption}
-                    // hashtags = {props.getHashtags(picture.id)}
 
-                />
+            filteredHashtag = '';
+            props.hashtags.map((hashtag) => {
+                for (let i = 0; i < hashtag.length; i++) {
+                    if (!properHashtag.includes(hashtag[i]) && (hashtag[i].image_id === picture.id)) {
+                        properHashtag.push(hashtag[i]);
+                    }
+                }
+            })
+            for (let i = 0; i < properHashtag.length; i++) {
+                if (properHashtag[i].image_id === picture.id) {
+                    filteredHashtag += `#${properHashtag[i].hashtag} `;
+                }
+            }
+            return (
+                <div id='picture'>
+                    <Picture url={picture.image_url}
+                        id={picture.id}
+                        key={picture.id}
+                        alt={picture.alt}
+                        username={props.username}
+                        poster_name={picture.poster_name}
+                        caption={picture.caption}
+                        hashtag={filteredHashtag}
+                    />
+                </div>
             )
-        })
+        }
+        )
     )
 }
 
 export default PictureDisplay;
-
-

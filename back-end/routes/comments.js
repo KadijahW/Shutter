@@ -3,7 +3,7 @@ const router = express.Router()
 const db = require('./db')
 
 
-router.get('/:username/:image_id', async (req, res) => {
+router.get('/:image_id', async (req, res) => {
     try {
         let commentOnImage = await db.any(`SELECT commentors_name, comment FROM comments WHERE image_id = '${req.params.image_id}' `)
         res.json({

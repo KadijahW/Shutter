@@ -62,18 +62,18 @@ class Interactions extends React.Component {
         const { imageId } = this.state;
         const res = await axios.get(`http://localhost:3001/comments/${imageId}`);
         let comment = res.data.payload
-        // console.log(comment)
-        // this.setState({
-        //     likes: likeAmount
-        // })
+        console.log(comment)
+        this.setState({
+            comments: comment
+        })
     }
     countComments = async () => {
         const { imageId } = this.state;
         this.getComments()
-        const res = await axios.get(`http://localhost:3001/likes/images/count/${imageId}`)
+        const res = await axios.get(`http://localhost:3001/comments/count/:image_id/${imageId}`)
         let commentAmount = res.data.payload[0].count
         this.setState({
-            likes: commentAmount
+            comment: commentAmount
         })
     }
 
@@ -89,7 +89,7 @@ class Interactions extends React.Component {
                 <br></br>
                 {likeBtnPushed !== 'add' ? <div onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
                     : <div onClick={this.makeOrTakeALike}><i id='liked' class="fas fa-heart"></i> {likes}</div>}
-                <div><i class="far 2"></i>Comments:{comments}</div>
+                <div><i class="far 2"></i>Comments:{this.countComments}</div>
                 <p><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
             </>
         )

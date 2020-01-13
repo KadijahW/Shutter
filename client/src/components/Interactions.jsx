@@ -13,7 +13,8 @@ class Interactions extends React.Component {
             imageId: props.id,
             likes: "",
             comments: "",
-            likeBtnPushed: ''
+            likeBtnPushed: '',
+            commentAmount: ' '
         }
     }
     getLikes = async () => {
@@ -60,7 +61,7 @@ class Interactions extends React.Component {
     }
     getComments = async () => {
         const { imageId } = this.state;
-        const res = await axios.get(`http://localhost:3001/comments/${imageId}`);
+        const res = await axios.get(`http://localhost:3001/comments/count/${imageId}`);
         let comment = res.data.payload
         console.log(comment)
         this.setState({
@@ -71,9 +72,9 @@ class Interactions extends React.Component {
         const { imageId } = this.state;
         this.getComments()
         const res = await axios.get(`http://localhost:3001/comments/count/:image_id/${imageId}`)
-        let commentAmount = res.data.payload[0].count
+        let Amount = res.data.payload[0].count
         this.setState({
-            comment: commentAmount
+            commentAmount: Amount
         })
     }
 

@@ -27,7 +27,7 @@ class AuthForm extends React.Component {
 
 <div className="information">
                 <div className="signInicon">
-                <i id="lock" class="fas fa-user-lock"></i>
+                <i id="lock" className="fas fa-user-lock"></i>
                 <h1> Sign In </h1> 
                 </div>
             

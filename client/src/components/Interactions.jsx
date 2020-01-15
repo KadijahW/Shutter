@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import './CSS/Interactions.css'
 
+
 class Interactions extends React.Component {
     constructor(props) {
         super()
@@ -90,7 +91,7 @@ class Interactions extends React.Component {
                 {likeBtnPushed !== 'add' ? <div onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
                     : <div onClick={this.makeOrTakeALike}><i id='liked' class="fas fa-heart"></i> {likes}</div>}
                 <div><i class="far 2"></i>Comments:{comments}</div>
-                <p><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
+                <p style={{width: '300px'}}><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
             </>
         )
     }

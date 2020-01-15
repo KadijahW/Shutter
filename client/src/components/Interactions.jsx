@@ -90,7 +90,7 @@ class Interactions extends React.Component {
             <>
                 <br></br>
                 {likeBtnPushed !== 'add' ? <div onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
-                    : <div onClick={this.makeOrTakeALike}><i id='liked' class="fas fa-h
+                    : <div onClick={this.makeOrTakeALike}><i id='liked' class="fas fa-h"></i> {likes}</div>}
                 <div><i class="far 2"></i>Comments:{comments}</div>
                 <p style={{width: '300px'}}><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
             </>

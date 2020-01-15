@@ -1,6 +1,7 @@
 import React from "react"
 import {Route} from 'react-router-dom'
 import './CSS/Signup.css';
+import axios from "axios";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class SignUp extends React.Component{
@@ -12,11 +13,25 @@ class SignUp extends React.Component{
         }
     }
     
-    handleFormSubmit = (e) =>{
+    handleFormSubmit = async (e) =>{
+        let {username, email} = this.state
         e.preventDefault()
         console.log("clicked")
-        this.props.history.push("/")
-        this.props.signUp(this.state.username, this.state.email)
+
+        try{
+
+            let url = `http://localhost:3001/user/post`
+            let res = await axios.post(url, {username: username, email: email})
+            console.log(res)
+            
+            this.props.history.push("/")
+            this.props.signUp(this.state.username, this.state.email)
+
+
+        }catch(err){
+            console.log(err + "you fucked up")
+
+        }
 
     }
 

@@ -25,6 +25,8 @@ class HomePage extends React.Component {
 
         }
     }
+    
+    
     getAllPictures = async () => {
         const { pictures, hashtags } = this.state
         let arr = [];
@@ -152,6 +154,7 @@ class HomePage extends React.Component {
                 checkbox: !checkbox
             })
         }
+        
         componentDidMount() {
 
             console.log('mounted')

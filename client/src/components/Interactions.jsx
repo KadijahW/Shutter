@@ -82,7 +82,7 @@ class Interactions extends React.Component {
 
     componentDidMount = () => {
         this.countLikes();
-        this.getComments();
+        // this.getComments();
         this.getLikes();
     }
     render() {

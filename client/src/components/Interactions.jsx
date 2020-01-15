@@ -58,15 +58,7 @@ class Interactions extends React.Component {
             })
         }
     }
-    getComments = async () => {
-        const { imageId } = this.state;
-        const res = await axios.get(`http://localhost:3001/comments/${imageId}`);
-        let comment = res.data.payload
-        // console.log(comment)
-        // this.setState({
-        //     likes: likeAmount
-        // })
-    }
+    
     countComments = async () => {
         const { imageId } = this.state;
         this.getComments()
@@ -79,18 +71,19 @@ class Interactions extends React.Component {
 
     componentDidMount = () => {
         this.countLikes();
-        this.getComments();
+        // this.getComments();
         this.getLikes();
     }
     render() {
-        const { poster_name, caption, likes, comments, likeBtnPushed } = this.state
+        const { poster_name, caption, likes, comments, likeBtnPushed, hashtag } = this.state
+        // console.log("interactions", hashtag, poster_name)
         return (
             <>
                 <br></br>
                 {likeBtnPushed !== 'add' ? <div onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
                     : <div onClick={this.makeOrTakeALike}><i id='liked' class="fas fa-heart"></i> {likes}</div>}
                 <div><i class="far 2"></i>Comments:{comments}</div>
-                <p><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
+                <p><strong>{poster_name}</strong> {caption} <em>{hashtag}</em></p>
             </>
         )
     }

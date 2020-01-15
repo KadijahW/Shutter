@@ -2,6 +2,7 @@ import React from "react"
 import {Route, Link, Switch} from "react-router-dom";
 import axios from "axios"
 import PictureDisplay from "./PictureDisplay";
+import ProfilePicture from "./ProfilePic"
 
 class Profile extends React.Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class Profile extends React.Component {
             caption: "",
             tags: "",
             profileImage: "",
-            hideNewImage: true
+            hideNewImage: true,
+            comments: []
         }
     }
     getAllUserPictures = async () => {
@@ -27,6 +29,7 @@ class Profile extends React.Component {
         this.setState({
             pictures: pictures.data.body
         })
+        this.getHashtags();
     }
     hashtag = async (image_id) => {
         let newArr = []
@@ -49,23 +52,23 @@ class Profile extends React.Component {
         })
       }
     
-    getProfileImage = async () => {
-        try {
-            const {username} = this.state
-            console.log("profile pic function")
-            console.log(username)
+    // getProfileImage = async () => {
+    //     try {
+    //         const {username} = this.state
+    //         console.log("profile pic function")
+    //         console.log(username)
 
-            const res = await axios.get(`http://localhost:3001/images/profileImage/${username}`)
-            console.log(res.data.body)
-            console.log("hi")
-            this.setState({
-                profileImage: res.data.body[0].profileimage
-            })
-        } catch (error) {
-            console.log(error)
-        }
+    //         const res = await axios.get(`http://localhost:3001/images/profileImage/${username}`)
+    //         console.log(res.data.body)
+    //         console.log("hi")
+    //         this.setState({
+    //             profileImage: res.data.body[0].profileimage
+    //         })
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
 
-    }
+    // }
 
     
 
@@ -93,6 +96,24 @@ class Profile extends React.Component {
             console.log(res.data.body)
         }catch (err) {
             console.log(err)
+        }
+    }
+
+    getComments = async () => {
+        let obj = {}
+        try {    
+            const res = await axios.get(`http://localhost:3001/comments`);
+            let comments = res.data.body;
+            for(let i of comments) {
+                obj[i.comment_id] = i;
+            }
+            this.setState({
+                comments: obj
+            })
+            console.log("Commentssssss", this.state.comments)
+
+        } catch (error) {
+            console.log(error)
         }
     }
 
@@ -129,6 +150,8 @@ class Profile extends React.Component {
 
       }
 
+      
+
       changeProfileImage = async (e) => {
         const {username, imageURL} = this.state;
         try {
@@ -159,17 +182,47 @@ class Profile extends React.Component {
         }
       }
        
+      componentDidMount() {
+        this.getAllUserPictures();
+        this.getComments();
+        // this.getProfileImage();
+      }
+      componentDidUpdate() {
+        console.log('updated')
+        this.changeProfileImage()
+    }
+
+    getHashtags = async () => {
+        const { hashtags, pictures } = this.state
+        let obj = {};
+        // console.log(pictures)
+        for (let i = 0; i < pictures.length; i++) {
+            let response = await axios.get(`http://localhost:3001/hashtags/image/${pictures[i].id}`);
+            let results = response.data.body
+            for(let tag of results) {
+                obj[tag.hashtag] = pictures[i].id
+            }
+            
+            console.log(obj, "HASHTAGS results")
+            
+        }
+        this.setState({
+            hashtags: obj
+        })
+        // console.log(hashtags)
+    }
+
 
     render() {
         return (
             <div>
-                <img src={this.state.profileImage} alt =""></img>
-                <button onClick={this.profileImageForm}>Change Image</button>
+                <ProfilePicture
+                    username = {this.state.username}
+                />
                 <form id="newImageForm" onSubmit={this.handleSubmitProfile}>
                     <input type="file" onChange={this.handleFileInput} required/>
                     <input type="submit" value="Upload"/>
                 </form>
-                <button onClick={this.getProfileImage}>GetProfileImage</button>
                 <h1>Welcome {this.props.userName}</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input type="file" onChange={this.handleFileInput} required/>
@@ -181,8 +234,11 @@ class Profile extends React.Component {
                 <button onClick={this.getAllUserPictures}
                 >get picture</button>
                 <PictureDisplay pictures={this.state.pictures} 
-                // getHashtags = {this.hashtag}
+                    hashtags={this.state.hashtags}
+                    username = {this.state.username}
+                    comments = {this.state.comments}
                 />
+
             </div>
         )
 

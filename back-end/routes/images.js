@@ -120,6 +120,7 @@ const getProfilePic = async (req, res, next) => {
 }
 
 
+
 /* ROUTES */
 router.get("/profileImage/:username", getProfilePic)
 router.get("/count", count)

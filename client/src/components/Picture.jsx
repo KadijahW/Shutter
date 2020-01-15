@@ -27,6 +27,7 @@ class Picture extends React.Component {
     }
     render() {
         const { username, poster_name, caption, hashtag, id, url, alt } = this.state
+        console.log("picture", hashtag)
         return (
             <>
                 <img onClick={this.getSinglePicture}
@@ -35,7 +36,7 @@ class Picture extends React.Component {
                     width='300px'
                     height='300px'
                 />
-                <Interactions username={username} poster_name={poster_name} caption={caption} hashtag={hashtag} id={id} />
+                <Interactions username={username} poster_name={poster_name} caption={caption} id={id} hashtag={hashtag} />
             </>
         )
     }

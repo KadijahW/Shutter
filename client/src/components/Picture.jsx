@@ -13,7 +13,8 @@ class Picture extends React.Component {
             id: props.id,
             url: props.url,
             alt: props.alt,
-            height: props.height
+            height: props.height,
+            width: props.width
         }
     }
     getSinglePicture = async () => {
@@ -33,10 +34,10 @@ class Picture extends React.Component {
                 <img onClick={this.getSinglePicture}
                     src={url}
                     alt={alt}
-                    width={`300px`}
+                    width={`400px`}
                     height={`${height}px`}//'300px'
                 />
-                <Interactions username={username} poster_name={poster_name} caption={caption} hashtag={hashtag} id={id}  />
+                <Interactions username={username} poster_name={poster_name} caption={caption} hashtag={hashtag} id={id} width = {width}  />
             </div>
         )
     }

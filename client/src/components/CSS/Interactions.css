@@ -1,6 +1,28 @@
 /* .fa-heart{
     margin-left: -20px;
 } */
-#liked{
+#heart{
     color: red;
+
+}
+.heart{
+    display: inline-block;
+}
+#comment{
+    display: inline-block;
+}
+.interaction:hover{
+    /* background-color: greenyellow; */
+    /* margin-top: -4px; */
+        position: absolute;
+        bottom: 0;
+        top:0;
+        left: 0;
+        right: 0;
+        background: rgb(0, 0, 0); /* Fallback color */
+        background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+        color: #f1f1f1;
+        /* width: 100%; */
+        /* height: 100%; */
+        /* padding: 20px; */
 }

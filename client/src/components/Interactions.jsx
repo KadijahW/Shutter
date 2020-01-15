@@ -60,24 +60,24 @@ class Interactions extends React.Component {
             })
         }
     }
-    getComments = async () => {
-        const { imageId } = this.state;
-        const res = await axios.get(`http://localhost:3001/comments/count/${imageId}`);
-        let comment = res.data.payload
-        console.log(comment)
-        this.setState({
-            comments: comment
-        })
-    }
-    countComments = async () => {
-        const { imageId } = this.state;
-        this.getComments()
-        const res = await axios.get(`http://localhost:3001/comments/count/:image_id/${imageId}`)
-        let Amount = res.data.payload[0].count
-        this.setState({
-            commentAmount: Amount
-        })
-    }
+    // getComments = async () => {
+    //     const { imageId } = this.state;
+    //     const res = await axios.get(`http://localhost:3001/comments/count/${imageId}`);
+    //     let comment = res.data.payload
+    //     console.log(comment)
+    //     this.setState({
+    //         comments: comment
+    //     })
+    // }
+    // countComments = async () => {
+    //     const { imageId } = this.state;
+    //     this.getComments()
+    //     const res = await axios.get(`http://localhost:3001/comments/count/:image_id/${imageId}`)
+    //     let Amount = res.data.payload[0].count
+    //     this.setState({
+    //         commentAmount: Amount
+    //     })
+    // }
 
     componentDidMount = () => {
         this.countLikes();
@@ -87,14 +87,17 @@ class Interactions extends React.Component {
     render() {
         const { poster_name, caption, likes, comments, likeBtnPushed } = this.state
         return (
-            <>
+        
+            <div>
                 <br></br>
                 {likeBtnPushed !== 'add' ? <div onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
-                    : <div onClick={this.makeOrTakeALike}><i id='liked' class="fas fa-h
+                    : <div onClick={this.makeOrTakeALike}><i id='liked' class="fas fa-h"></i></div>}
                 <div><i class="far 2"></i>Comments:{comments}</div>
                 <p style={{width: '300px'}}><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
-            </>
-        )
+            </div>
+           
+    )
+        
     }
 }
 

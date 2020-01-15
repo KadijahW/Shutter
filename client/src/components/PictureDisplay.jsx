@@ -1,7 +1,7 @@
 import React from 'react';
 import Picture from './Picture';
 import Masonry from 'react-masonry-component';
-import Interactions from './Interactions';
+// import Interactions from './Interactions';
 
 const masonryOptions = {
     transitionDuration: 8

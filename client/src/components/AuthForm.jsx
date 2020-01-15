@@ -78,6 +78,7 @@ class AuthForm extends React.Component {
             <button className="loginBtn">Login</button>
             <br/>
             <Link to = "/SignUp"><button className="signBtn">Sign Up</button></Link>
+
             </form>
             </div>
 

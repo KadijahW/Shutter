@@ -94,6 +94,8 @@ class SignUp extends React.Component{
                     required = "required"/>
                     <br/>
                     <button id="createButton"> Create Account </button>
+                     <Link to = "/"><button className="log-in">Log In</button></Link>
+
                 </form>
             </div>
         )

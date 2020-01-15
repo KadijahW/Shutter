@@ -1,5 +1,5 @@
 import React from "react"
-import {Route} from 'react-router-dom'
+import {Route, Link} from 'react-router-dom'
 import './CSS/Signup.css';
 import axios from "axios";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -94,7 +94,7 @@ class SignUp extends React.Component{
                     required = "required"/>
                     <br/>
                     <button id="createButton"> Create Account </button>
-                     <Link to = "/"><button className="log-in">Log In</button></Link>
+                 <Link to = "/"><button className="log-in">Log In</button></Link>
 
                 </form>
             </div>

@@ -9,11 +9,19 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "axios": "^0.19.1",
+    "bricks.js": "^1.8.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-masonry-component": "^6.2.1",
+<<<<<<< HEAD
+=======
+    "react-masonry-css": "^1.0.14",
+    "react-masonry-layout": "^0.4.0",
+>>>>>>> 70efebaeef3e064912667e0326e22158c937b3d6
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "react-virtualized": "^9.21.2",
+    "react-virtualized-image-measurer": "^0.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

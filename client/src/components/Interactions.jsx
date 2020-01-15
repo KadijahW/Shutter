@@ -15,6 +15,7 @@ class Interactions extends React.Component {
             likes: "",
             comments: "",
             likeBtnPushed: '',
+            width: props.width,
             commentAmount: ' '
         }
     }
@@ -85,19 +86,18 @@ class Interactions extends React.Component {
         this.getLikes();
     }
     render() {
-        const { poster_name, caption, likes, comments, likeBtnPushed } = this.state
+        const { poster_name, caption, likes, comments, likeBtnPushed, width } = this.state
         return (
-        
-            <div>
-                <br></br>
-                {likeBtnPushed !== 'add' ? <div onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
-                    : <div onClick={this.makeOrTakeALike}><i id='liked' class="fas fa-h"></i></div>}
-                <div><i class="far 2"></i>Comments:{comments}</div>
-                <p style={{width: '300px'}}><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
-            </div>
-           
-    )
-        
+            <>
+                <div className='interaction'>
+                    {likeBtnPushed !== 'add' ? <div className='heart' onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
+                        : <div className='heart' onClick={this.makeOrTakeALike}><i id='heart' class="fas fa-heart"></i> {likes}</div>}
+                    <br></br>
+                </div>
+                <p style={{ width: `300px` }}><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
+
+            </>
+        )
     }
 }
 

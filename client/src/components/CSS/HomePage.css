@@ -1,18 +1,20 @@
-.picture{
+ .pictureDisplay{
    border: 1px black solid;
+   margin: 20px;
 }
-#homepage{
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    width: 600px;
+/* #homepage{
+    width: 100%;
     position: relative;
-    margin-left: 0px;
-}
-.root{
+
+}  */
+/* .likes{
+    margin-left: 20px;
+} */
+/* .root{
     text-align: start;
-}
+} */
 /* #homepage{
     display: inline-flex;
     flex-wrap: wrap;
 } */
+

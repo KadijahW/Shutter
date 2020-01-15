@@ -9,9 +9,9 @@ const db = require('./db')
 // });
 
 
-router.get('/:username', async (req, res) => {
+router.get('/:email', async (req, res) => {
 try {
-  let singleUser = await db.one(`SELECT * FROM users WHERE username = '${req.params.username}'`);
+  let singleUser = await db.one(`SELECT * FROM users WHERE email = '${req.params.email}'`);
   res.json({
       status: "Success", 
       body: {

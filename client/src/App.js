@@ -71,7 +71,7 @@ class App extends React.Component {
                 <SignUp history = {routeProps.history} signUp = {this.signUp}/>
               )
             }
-          }/>
+          }/>g
           <Redirect to = "/" />
           </Switch>
           </div>

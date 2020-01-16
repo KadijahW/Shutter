@@ -84,15 +84,51 @@ const postPhoto = async (req, res, next) => {
     }
 }
 
+const changeUserImg = async (req, res, next) => {
+    try {
+        let userImg = req.body.image_url;
+        let username = req.body.username;
+        let insertQuery = `UPDATE users SET profileImage = $1 WHERE username = $2;`;
+        await db.none(insertQuery, [userImg, username])
+        res.json({
+            status: "success",
+            message: "user Image updated"
+        });
+        
+    } catch(error) {
+        message: "There was an error!"
+    }
+}
+
+const getProfilePic = async (req, res, next) => {
+    
+    try {
+        let username = req.params.username;
+        console.log(username)
+        let insertQuery = `SELECT profileImage FROM users WHERE username = $1;`;
+        const response = await db.any(insertQuery, username)
+        res.json({
+            status:"success",
+            message: "got profile pic!",
+            body: response
+        });
+
+    } catch(error) {
+        console.log(error)
+        message: "There was an error!"
+    }
+}
 
 
 
 /* ROUTES */
-
+router.get("/profileImage/:username", getProfilePic)
 router.get("/count", count)
 router.get("/:image", singlePhoto); //get single photo
 router.get("/users/:poster_name", allUserPhotos); // get all user's photos
 router.post("/upload", postPhoto); // adds a single photo to a user
 router.get("/", allPhotos);
+router.patch("/", changeUserImg);
+
 
 module.exports = router;

@@ -7,7 +7,8 @@ CREATE DATABASE database;
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR UNIQUE,
-    email VARCHAR
+    email VARCHAR,
+    profileImage VARCHAR
 );
 
 CREATE TABLE images (
@@ -35,11 +36,11 @@ CREATE TABLE comments (
     commentors_name VARCHAR REFERENCES users (username)
 );
 
-INSERT INTO users (username, email)
-    VALUES ('JonathanFagan', 'JFagan@project.com'),
-           ('BriahanaMaugé', 'BMaugé@project.com'),
-           ('KadijahWilson', 'KWilson@project.com'),
-           ('PeterFiorentino', 'PFiorentino@project.com');
+INSERT INTO users (username, email, profileImage)
+    VALUES ('JonathanFagan', 'JFagan@project.com', ''),
+           ('BriahanaMaugé', 'BMauge@project.com', ''),
+           ('KadijahWilson', 'KWilson@project.com', ''),
+           ('PeterFiorentino', 'PFiorentino@project.com', 'http://localhost:3001/images/1578534325613-DSC02759.JPG');
 
 INSERT INTO images (poster_name, image_url, caption, alt)
     VALUES ('JonathanFagan', 'https://newyorkknicksmemesdotcom.files.wordpress.com/2013/08/tmac.jpg', 'My favorite player.', 'Basketball player for the Knicks.'),
@@ -68,5 +69,4 @@ INSERT INTO comments (comment, image_id, commentors_name)
            ('Can you do this to me?', 3, 'BriahanaMaugé'),
            ('Who is this?', 4, 'KadijahWilson');
 
-
-
+SELECT * FROM users;

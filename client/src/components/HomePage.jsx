@@ -21,7 +21,8 @@ class HomePage extends React.Component {
             alt: '',
             search: '',
             id: 0,
-            likes: ''
+            likes: '',
+            comments: []
 
         }
     }
@@ -54,18 +55,22 @@ class HomePage extends React.Component {
     }
     getHashtags = async () => {
         const { hashtags, pictures } = this.state
-        let arr = [];
+        let obj = {};
         // console.log(pictures)
         for (let i = 0; i < pictures.length; i++) {
             let response = await axios.get(`http://localhost:3001/hashtags/image/${pictures[i].id}`);
             let results = response.data.body
-            // console.log(results)
-            arr.push(results)
+            for(let tag of results) {
+                obj[tag.hashtag] = pictures[i].id
+            }
+            
+            // console.log(obj, "HASHTAGS results")
+            
         }
         this.setState({
-            hashtags: arr
+            hashtags: obj
         })
-        // console.log(hashtags)
+        // console.log(this.state.hashtags, "HASHTAGS")
     }
 
         handleFileInput = (event) => {
@@ -160,6 +165,7 @@ class HomePage extends React.Component {
             console.log('mounted')
             this.countImage()
             this.getAllPictures()
+            this.getComments()
 
         }
         componentDidUpdate() {
@@ -187,8 +193,28 @@ class HomePage extends React.Component {
                 console.log(err)
             }
         }
+
+        getComments = async () => {
+            let obj = {}
+            try {    
+                const res = await axios.get(`http://localhost:3001/comments`);
+                let comments = res.data.body;
+                for(let i of comments) {
+                    obj[i.comment_id] = i;
+                }
+                this.setState({
+                    comments: obj
+                })
+                // console.log("Commentssssss", this.state.comments)
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
         render() {
-            const { checkbox, username, hashtags, pictures } = this.state
+            const { checkbox, username, hashtags, pictures, comments } = this.state
+            console.log("HOME PAGE", hashtags)
             return (
                 <div>
                     <Link to="/profile">Profile</Link>
@@ -215,6 +241,7 @@ class HomePage extends React.Component {
                         <PictureDisplay pictures={pictures}
                             hashtags={hashtags}
                             username = {username}
+                            comments = {comments}
                         />
                     </div>
 

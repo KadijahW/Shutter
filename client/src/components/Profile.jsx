@@ -2,7 +2,7 @@ import React from "react"
 import {Route, Link, Switch} from "react-router-dom";
 import axios from "axios"
 import PictureDisplay from "./PictureDisplay";
-import ProfilePicture from "./ProfilePic"
+
 
 class Profile extends React.Component {
     constructor(props) {
@@ -52,23 +52,23 @@ class Profile extends React.Component {
         })
       }
     
-    // getProfileImage = async () => {
-    //     try {
-    //         const {username} = this.state
-    //         console.log("profile pic function")
-    //         console.log(username)
+    getProfileImage = async () => {
+        try {
+            const {username} = this.state
+            console.log("profile pic function")
+            console.log(username)
 
-    //         const res = await axios.get(`http://localhost:3001/images/profileImage/${username}`)
-    //         console.log(res.data.body)
-    //         console.log("hi")
-    //         this.setState({
-    //             profileImage: res.data.body[0].profileimage
-    //         })
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
+            const res = await axios.get(`http://localhost:3001/images/profileImage/${username}`)
+            console.log(res.data.body)
+            console.log("hi")
+            this.setState({
+                profileImage: res.data.body[0].profileimage
+            })
+        } catch (error) {
+            console.log(error)
+        }
 
-    // }
+    }
 
     
 
@@ -110,7 +110,7 @@ class Profile extends React.Component {
             this.setState({
                 comments: obj
             })
-            console.log("Commentssssss", this.state.comments)
+            // console.log("Commentssssss", this.state.comments)
 
         } catch (error) {
             console.log(error)
@@ -140,15 +140,7 @@ class Profile extends React.Component {
         }
       }
 
-      profileImageForm = async (e) => {
-          e.preventDefault();
-          
 
-          this.setState({
-              hideNewImage: false
-          })
-
-      }
 
       
 
@@ -170,9 +162,10 @@ class Profile extends React.Component {
         console.log(data)
         try{ 
           const res = await axios.post('http://localhost:3001/upload', data)
-          console.log(res.data)
+          console.log(res.data, "THIS")
           this.setState({
             imageURL: res.data.imageUrl,
+            profileImage: res.data.imageUrl,
             message: "Image uploaded!"
           })
 
@@ -185,11 +178,11 @@ class Profile extends React.Component {
       componentDidMount() {
         this.getAllUserPictures();
         this.getComments();
-        // this.getProfileImage();
+        this.getProfileImage();
       }
       componentDidUpdate() {
         console.log('updated')
-        this.changeProfileImage()
+        // this.changeProfileImage()
     }
 
     getHashtags = async () => {
@@ -216,13 +209,21 @@ class Profile extends React.Component {
     render() {
         return (
             <div>
-                <ProfilePicture
+                {/* <ProfilePicture
                     username = {this.state.username}
+                    handleSubmitProfile = {this.handleSubmitProfile}
+                    handleFileInput = {this.handleFileInput}
+                /> */}
+                <img 
+                    src={this.state.profileImage}
+                    width='300px'
+                    height='300px'
                 />
                 <form id="newImageForm" onSubmit={this.handleSubmitProfile}>
                     <input type="file" onChange={this.handleFileInput} required/>
                     <input type="submit" value="Upload"/>
                 </form>
+                
                 <h1>Welcome {this.props.userName}</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input type="file" onChange={this.handleFileInput} required/>

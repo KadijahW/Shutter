@@ -62,13 +62,13 @@ class HomePage extends React.Component {
                 obj[tag.hashtag] = pictures[i].id
             }
             
-            console.log(obj, "HASHTAGS results")
+            // console.log(obj, "HASHTAGS results")
             
         }
         this.setState({
             hashtags: obj
         })
-        console.log(this.state.hashtags, "HASHTAGS")
+        // console.log(this.state.hashtags, "HASHTAGS")
     }
 
         handleFileInput = (event) => {
@@ -202,7 +202,7 @@ class HomePage extends React.Component {
                 this.setState({
                     comments: obj
                 })
-                console.log("Commentssssss", this.state.comments)
+                // console.log("Commentssssss", this.state.comments)
 
             } catch (error) {
                 console.log(error)

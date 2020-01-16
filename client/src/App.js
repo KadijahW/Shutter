@@ -18,9 +18,12 @@ class App extends React.Component {
     }
   }
   
-  logIn = () =>{
+  logIn = (email, userName) =>{
     this.setState({
-      userLoggedIn: true
+      userLoggedIn: true,
+      userName: userName,
+      email: email
+
     })
   }
 
@@ -57,7 +60,8 @@ class App extends React.Component {
                   return( 
                   <AuthForm 
                   logIn={this.logIn}
-                  userLoggedIn = {this.state.userLoggedIn}/>)
+                  userLoggedIn = {this.state.userLoggedIn}
+                  history = {routeProps.history}/>)
                   }
                 }/>
           {/* sign up route for when a user wants to create an account */}

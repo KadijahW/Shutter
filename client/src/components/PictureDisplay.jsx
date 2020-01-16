@@ -3,6 +3,7 @@ import Picture from './Picture';
 import Masonry from 'react-masonry-component';
 
 
+
 const masonryOptions = {
     transitionDuration: 0
 };
@@ -28,7 +29,27 @@ class PictureDisplay extends React.Component {
     // }
     render() {
         const { username } = this.state
+         let hashtags = props.hashtags;
+          let commentsProp = props.comments;
+        console.log(commentsProp, "CommentsProp")
         const childElements = this.props.pictures.map(function (element) {
+          
+            
+            let tags = [];
+                let comments = [];
+                for (let i in hashtags) {
+                    if(hashtags[i] === element.id) {
+                        tags.push(`#${i} `)
+                    }
+                }
+                for (let i in commentsProp) {
+                    console.log("Comments stuff", commentsProp[i])
+                    if(commentsProp[i].image_id === element.id) {
+                        console.log("COMMENTS ID", i)
+                        comments.push(`${commentsProp[i].commentors_name}: ${commentsProp[i].comment}`)
+                    }
+                } console.log("COMMENTS", comments)
+          
             let height = ''
             let width = ''
             if (element.id % 2 === 0) {
@@ -88,45 +109,6 @@ class PictureDisplay extends React.Component {
 
         );
     }
+
 }
-
-export default PictureDisplay;
-
-
-
-// const PictureDisplay = (props) => {
-//     let properHashtag = [];
-//     let filteredHashtag = "";
-//     return (
-//         props.pictures.map((picture) => {
-
-//             const breakpointColumnsObj = {
-//                 default: 4,
-//                 1100: 3,
-//                 700: 2,
-//                 500: 1
-//             };
-//             return (
-//                 <div id='picture'>
-//                     <Masonry
-//                         breakpointCols={breakpointColumnsObj}
-//                         className="my-masonry-grid"
-//                         columnClassName="my-masonry-grid_column">
-//                         <Picture url={picture.image_url}
-//                             id={picture.id}
-//                             key={picture.id}
-//                             alt={picture.alt}
-//                             username={props.username}
-//                             poster_name={picture.poster_name}
-//                             caption={picture.caption}
-//                             hashtag={filteredHashtag}
-//                         />
-//                     </Masonry>
-//                 </div>
-//             )
-//         }
-//         )
-//     )
-// }
-
-// export default PictureDisplay;
+            

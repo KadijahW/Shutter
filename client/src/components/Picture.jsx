@@ -28,7 +28,10 @@ class Picture extends React.Component {
         }
     }
     render() {
-        const { username, poster_name, caption, hashtag, id, url, alt, height, width } = this.state
+
+        const { username, poster_name, caption, hashtag, id, url, alt } = this.state
+        console.log("picture", hashtag)
+
         return (
             <div id = 'pictures'>
                 <img onClick={this.getSinglePicture}
@@ -37,8 +40,10 @@ class Picture extends React.Component {
                     width={`400px`}
                     height={`${height}px`}//'300px'
                 />
-                <Interactions username={username} poster_name={poster_name} caption={caption} hashtag={hashtag} id={id} width = {width}  />
-            </div>
+
+                <Interactions username={username} poster_name={poster_name} caption={caption} id={id} hashtag={hashtag} />
+            </>
+
         )
     }
 }

@@ -2,19 +2,23 @@ body {
     height: 90vh;
     margin: 0;
     padding: 0;
-  }
+}
+
 
 .container {
     background-image: url(https://premiumbpthemes.com/images/clipart-camera-square-8.png);
     width: 100%;
     background-repeat: no-repeat;
     background-size: 50%;
-    background-position: 34% 115%;
+    background-position: 34% 50%;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 46% 50%;
 }
 
-.AppTwo{
+
+
+
+.AppTwo {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,37 +27,52 @@ body {
     align-items: center;
 }
 
+.formContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: self-end;
+    margin-top: 104px;
+    margin-bottom: 80px;
+
+}
+
+
 .form {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    height: 100%;
     width: 70%;
-    background-color:#5BB2B1;
-    margin-top: 34px;
-    margin-bottom: 114px;
-    margin-left: -60px;
+    background-color: #5BB2B1;
+    /* margin-top: 104px;
+    margin-bottom: 80px; */
     /* z-index: 6; */
 }
+.information{
+    width: 50%;
+}
 
-.loginBtn, .signBtn {
+.loginBtn,
+.signBtn {
     /* border-radius: 100px; */
     padding: 6px 16px;
     font-size: 14px;
     font-weight: bold;
     line-height: 20px;
-    position: relative; 
+    position: relative;
     margin-top: 20px;
-    width: 300px;
+    width: 100%;
 }
 
-.signBtn:hover, .loginBtn:hover{
-  background-color: rgb(54,21,43); 
-  color: white; 
+.signBtn:hover,
+.loginBtn:hover {
+    background-color: rgb(54, 21, 43);
+    color: white;
 }
 
 .login {
-    width: 25%;
     color: currentColor;
     width: 100%;
     border: 2;
@@ -68,7 +87,7 @@ body {
 .signInicon {
     font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     font-weight: 400;
-    margin: -30% 0% 25% 30%;
+    /* margin: -30% 0% 25% 30%; */
 }
 
 #lock {
@@ -78,5 +97,25 @@ body {
     /* border: 0px solid #36152b;
     border-radius: 0%; */
     font-size: 25px;
-    margin-left: 30px;;
+    margin-left: 30px;
+    ;
 }
+
+@media screen and (max-width: 890px) {
+    .container {
+        display: flex;
+        background-position: 50% 50%;
+        background-size: 83%;
+    }
+    .form {
+        width: 50%
+    }
+    .formContainer{
+        width: 100%;
+        justify-content: center;
+    }
+    .information {
+        width: 70%; 
+
+    }
+} 

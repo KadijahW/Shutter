@@ -78,7 +78,11 @@ class SignUp extends React.Component{
                     id = "email" 
                     type = "email"
                     value = {email}
-                    onChange = {this.handleEmailChange} 
+                    onChange = {this.handleEmailChange}
+                    onInvalid = { (e) => {
+                        e.target.setCustomValidity("Please Enter a valid Email")
+                    }
+                    } 
                     placeholder =  "Enter Email" 
                     required = "required"/>
                     <br/> 

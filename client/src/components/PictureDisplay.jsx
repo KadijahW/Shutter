@@ -29,8 +29,8 @@ class PictureDisplay extends React.Component {
     // }
     render() {
         const { username } = this.state
-         let hashtags = props.hashtags;
-          let commentsProp = props.comments;
+         let hashtags = this.props.hashtags;
+          let commentsProp = this.props.comments;
         console.log(commentsProp, "CommentsProp")
         const childElements = this.props.pictures.map(function (element) {
           
@@ -112,3 +112,4 @@ class PictureDisplay extends React.Component {
 
 }
             
+export default PictureDisplay

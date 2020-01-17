@@ -16,10 +16,11 @@ class Picture extends React.Component {
             alt: props.alt,
             height: props.height,
             width: props.width
+         
         }
     }
     getSinglePicture = async () => {
-        const {id} = this.state;
+        const { id } = this.state;
         try {
             const res = await axios.get(`http://localhost:3001/images/${id}`)
             console.log(res.data.payload[0])
@@ -28,17 +29,18 @@ class Picture extends React.Component {
             console.log(error)
         }
     }
+
     render() {
-        const { username, poster_name, caption, hashtag, id, url, alt, height, width } = this.state
+        const { username, poster_name, caption, hashtag, id, url, alt, height, width, hovered } = this.state
         return (
-            <div id = 'pictures'>
+            <div id='pictures' >
                 <img onClick={this.getSinglePicture}
                     src={url}
                     alt={alt}
-                    width= {`360px`}
+                    width={`360px`}
                     height={`${height}px`}//'300px'
                 />
-                <Interactions username={username} poster_name={poster_name} caption={caption} hashtag={hashtag} id={id} width = {width}  />
+                <Interactions username={username} poster_name={poster_name} caption={caption} hashtag={hashtag} id={id} width={width} />
             </div>
         )
     }

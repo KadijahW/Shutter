@@ -11,6 +11,15 @@
 #comment{
     display: inline-block;
 }
+.interaction{
+    color: rgba(0, 0, 0, 0);
+    position: absolute;
+    visibility: visible;
+    bottom: 52px;
+    top: 0;
+    left: 0;
+    right: 0;
+}
 .interaction:hover{
     /* background-color: greenyellow; */
     /* margin-top: -4px; */
@@ -31,6 +40,6 @@
 }
 .interaction p{
     position: absolute;
-    top: 60px;
-    left: 160px;
+    top: 25%;
+    left: 50%;
 }

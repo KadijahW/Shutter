@@ -49,8 +49,6 @@ class PictureDisplay extends React.Component {
                 height = 600
             }
             // let height = element.id % 2 === 0 ? 300 : 200;
-
-            console.log(height)
             return (
                 // <li className="image-element-class">
                 //     <img src={element.image_url} />
@@ -82,7 +80,6 @@ class PictureDisplay extends React.Component {
                 imagesLoadedOptions={imagesLoadedOptions} // default {}
                 style={style}
             >
-
                 {childElements}
 
             </Masonry>

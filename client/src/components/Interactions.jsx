@@ -89,9 +89,9 @@ class Interactions extends React.Component {
         const { poster_name, caption, likes, comments, likeBtnPushed, width } = this.state
         return (
             <>
-                <div className='interaction'>
-                    {likeBtnPushed !== 'add' ? <div className='heart' onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
-                        : <div className='heart' onClick={this.makeOrTakeALike}><i id='heart' class="fas fa-heart"></i> {likes}</div>}
+                <div className='interaction' /*style={{ visibility: `hidden` }}*/>
+                    {likeBtnPushed !== 'add' ? <div className='heart'> <p onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</p></div>
+                        : <div className='heart'><p onClick={this.makeOrTakeALike}><i id='heart' class="fas fa-heart"></i> {likes}</p></div>}
                     <br></br>
                 </div>
                 <p style={{ width: `300px` }}><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>

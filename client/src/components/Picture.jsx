@@ -1,6 +1,7 @@
 import React from 'react';
 import Interactions from './Interactions';
 import axios from 'axios';
+// import './CSS/PictureDisplay.css';
 
 class Picture extends React.Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class Picture extends React.Component {
                 <img onClick={this.getSinglePicture}
                     src={url}
                     alt={alt}
-                    width={`400px`}
+                    width= {`360px`}
                     height={`${height}px`}//'300px'
                 />
                 <Interactions username={username} poster_name={poster_name} caption={caption} hashtag={hashtag} id={id} width = {width}  />

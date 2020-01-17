@@ -1,10 +1,11 @@
 import React from 'react';
 import Picture from './Picture';
 import Masonry from 'react-masonry-component';
+import './CSS/HomePage.css';
 
 
 const masonryOptions = {
-    transitionDuration: 0
+    transitionDuration: 8
 };
 const style = {
     // backgroundColor: 'tomato',
@@ -29,24 +30,24 @@ class PictureDisplay extends React.Component {
     render() {
         const { username } = this.state
         const childElements = this.props.pictures.map(function (element) {
-            let height = ''
-            let width = ''
+
+            let height = '';
             if (element.id % 2 === 0) {
                 height = 250
             }
             else if (element.id % 3 === 0) {
-                height = 350
+                height = 275
             }
             else if (element.id % 5 === 0) {
+                height = 300
+            } else if (element.id % 7 === 0) {
                 height = 450
-            } else if (element.id % 7 === 0){
+            } else if (element.id % 9 === 0) {
                 height = 575
-            } else{
+            }
+            else {
                 height = 600
             }
-            // else(
-            //     height = 500
-            // )
             // let height = element.id % 2 === 0 ? 300 : 200;
 
             console.log(height)
@@ -55,16 +56,16 @@ class PictureDisplay extends React.Component {
                 //     <img src={element.image_url} />
                 // </li>
                 // <picture className='pictureDisplay'>
-                    <Picture url={element.image_url}
-                        id={element.id}
-                        key={element.id}
-                        alt={element.alt}
-                        username={username}
-                        poster_name={element.poster_name}
-                        caption={element.caption}
-                        height={height}
+                <Picture url={element.image_url}
+                    id={element.id}
+                    key={element.id}
+                    alt={element.alt}
+                    username={username}
+                    poster_name={element.poster_name}
+                    caption={element.caption}
+                    height={height}
 
-                    />
+                />
                 // </picture>
 
             );
@@ -72,61 +73,22 @@ class PictureDisplay extends React.Component {
 
 
         return (
-                <Masonry
-                    className={'my-gallery-class'} // default ''
-                    elementType={'ul'} // default 'div'
-                    options={masonryOptions} // default {}
-                    disableImagesLoaded={false} // default false
-                    updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
-                    imagesLoadedOptions={imagesLoadedOptions} // default {}
-                    style={style}
-                >
-                    
-                        {childElements}
-                   
-                </Masonry>
+            <Masonry
+                className={'my-gallery-class'} // default ''
+                elementType={'ul'} // default 'div'
+                options={masonryOptions} // default {}
+                disableImagesLoaded={false} // default false
+                updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
+                imagesLoadedOptions={imagesLoadedOptions} // default {}
+                style={style}
+            >
+
+                {childElements}
+
+            </Masonry>
 
         );
     }
 }
 
 export default PictureDisplay;
-
-
-
-// const PictureDisplay = (props) => {
-//     let properHashtag = [];
-//     let filteredHashtag = "";
-//     return (
-//         props.pictures.map((picture) => {
-
-//             const breakpointColumnsObj = {
-//                 default: 4,
-//                 1100: 3,
-//                 700: 2,
-//                 500: 1
-//             };
-//             return (
-//                 <div id='picture'>
-//                     <Masonry
-//                         breakpointCols={breakpointColumnsObj}
-//                         className="my-masonry-grid"
-//                         columnClassName="my-masonry-grid_column">
-//                         <Picture url={picture.image_url}
-//                             id={picture.id}
-//                             key={picture.id}
-//                             alt={picture.alt}
-//                             username={props.username}
-//                             poster_name={picture.poster_name}
-//                             caption={picture.caption}
-//                             hashtag={filteredHashtag}
-//                         />
-//                     </Masonry>
-//                 </div>
-//             )
-//         }
-//         )
-//     )
-// }
-
-// export default PictureDisplay;

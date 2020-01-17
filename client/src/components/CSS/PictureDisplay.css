@@ -1,3 +1,12 @@
 .my-gallery-class{
     background-color: blueviolet;
 }
+
+/* @media only screen and (max-width: 600px){
+    img{
+      height: 400px;
+      width: 425px;
+      height: 4900px;
+      width: 425px;
+    }
+}  */

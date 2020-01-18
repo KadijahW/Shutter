@@ -17,6 +17,11 @@
 img:hover{
   z-index: -999;
 }
+::placeholder{
+  color: black;
+  font-size: 12px;
+  text-align: center
+}
 /* img{
   margin-top: -16px;
 } */

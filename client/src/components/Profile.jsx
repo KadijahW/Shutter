@@ -18,7 +18,9 @@ class Profile extends React.Component {
             tags: "",
             profileImage: "",
             hideNewImage: true,
-            comments: []
+            comments: [], 
+            checkbox: false,
+            alt: ""
         }
     }
     getAllUserPictures = async () => {
@@ -193,7 +195,17 @@ class Profile extends React.Component {
         })
         // console.log(hashtags)
     }
-
+    selectAlt = (event) => {
+        const { checkbox } = this.state
+        this.setState({
+            checkbox: !checkbox
+        })
+    }
+    handleAltChange = (event) => {
+        this.setState({
+            alt: event.target.value
+        })
+    }
 
     render() {
         return (
@@ -216,8 +228,12 @@ class Profile extends React.Component {
                 <h1>Welcome {this.props.userName}</h1>
                 <form onSubmit={this.handleSubmit}>
                     <input type="file" onChange={this.handleFileInput} required/>
-                    <input type="text" placeholder ="caption" onChange={this.handleCaption}></input>
-                    <input type="text" placeholder="tags" onChange={this.handleTags}></input>
+                 <input type="text" placeholder ="caption" onChange={this.handleCaption}></input>
+                 <input type="text" placeholder="tags" onChange={this.handleTags}></input>
+                    <label htmlFor='alt'> Add alternate text<input name='alt' type='checkbox' value='checked' onChange={this.selectAlt} /></label>
+                    {this.state.checkbox ?
+                        <input name='altText' type='text' placeholder='Add Alt text' onChange={this.handleAltChange} required /> :
+                        null}
                     <input type="submit" value="Upload"/>
                 </form>
                 <p>{this.state.message}</p>

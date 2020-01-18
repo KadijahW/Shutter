@@ -19,16 +19,7 @@ class Picture extends React.Component {
          
         }
     }
-    getSinglePicture = async () => {
-        const { id } = this.state;
-        try {
-            const res = await axios.get(`http://localhost:3001/images/${id}`)
-            console.log(res.data.payload[0])
-
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    
 
     render() {
 

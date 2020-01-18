@@ -40,7 +40,7 @@ const allHashtags = async (req, res, next) => {
 }
 const singleHashtagAllPhotos = async (req, res, next) => {
     try {
-        word = req.params.word
+        word = req.query.word
         const selectQuery = `SELECT image_id FROM hashtags WHERE hashtag = $1;`; //double check later
         let response = await db.any(selectQuery, word);
         res.json({

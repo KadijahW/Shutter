@@ -49,3 +49,7 @@ margin-left: 18%;
   padding: 8px;
   min-width: 5vh;
 }
+::placeholder{
+  color: white;
+  font-size: 12px;
+}

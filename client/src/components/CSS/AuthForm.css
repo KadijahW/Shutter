@@ -104,7 +104,10 @@ body {
 #signinLogo {
 text-align: center;
 }
-
+::placeholder{
+    color: white;
+    font-size: 12px;
+  }
 @media screen and (max-width: 890px) {
     .container {
         display: flex;

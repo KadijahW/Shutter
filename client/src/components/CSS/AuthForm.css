@@ -15,9 +15,6 @@ body {
     grid-template-columns: 46% 50%;
 }
 
-
-
-
 .AppTwo {
     display: flex;
     flex-direction: column;
@@ -32,9 +29,10 @@ body {
     flex-direction: row;
     justify-content: flex-start;
     align-items: self-end;
-    margin-top: 104px;
-    margin-bottom: 80px;
-
+    /* margin-top: 104px;
+    margin-bottom: 80px; */
+    margin-top: 89px;
+    margin-bottom: 63px;
 }
 
 

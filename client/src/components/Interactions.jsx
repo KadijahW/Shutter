@@ -13,7 +13,6 @@ class Interactions extends React.Component {
             hashtag: props.hashtag,
             imageId: props.id,
             likes: "",
-            comments: "",
             likeBtnPushed: '',
             width: props.width,
             commentAmount: ' '
@@ -61,24 +60,16 @@ class Interactions extends React.Component {
             })
         }
     }
-    // getComments = async () => {
-    //     const { imageId } = this.state;
-    //     const res = await axios.get(`http://localhost:3001/comments/count/${imageId}`);
-    //     let comment = res.data.payload
-    //     console.log(comment)
-    //     this.setState({
-    //         comments: comment
-    //     })
-    // }
-    // countComments = async () => {
-    //     const { imageId } = this.state;
-    //     this.getComments()
-    //     const res = await axios.get(`http://localhost:3001/comments/count/:image_id/${imageId}`)
-    //     let Amount = res.data.payload[0].count
-    //     this.setState({
-    //         commentAmount: Amount
-    //     })
-    // }
+
+    countComments = async () => {
+        const { imageId } = this.state;
+        this.getComments()
+        const res = await axios.get(`http://localhost:3001/comments/count/:image_id/${imageId}`)
+        let Amount = res.data.payload[0].count
+        this.setState({
+            commentAmount: Amount
+        })
+    }
 
     componentDidMount = () => {
         this.countLikes();
@@ -86,15 +77,16 @@ class Interactions extends React.Component {
         this.getLikes();
     }
     render() {
-        const { poster_name, caption, likes, comments, likeBtnPushed, width } = this.state
+
+        const { poster_name, caption, likes, comments, likeBtnPushed, hashtag } = this.state
+        // console.log("interactions", hashtag, poster_name)
         return (
             <>
-                <div className='interaction'>
-                    {likeBtnPushed !== 'add' ? <div className='heart' onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
-                        : <div className='heart' onClick={this.makeOrTakeALike}><i id='heart' class="fas fa-heart"></i> {likes}</div>}
-                    <br></br>
-                </div>
-                <p style={{ width: `300px` }}><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
+                <br></br>
+                {likeBtnPushed !== 'add' ? <div onClick={this.makeOrTakeALike}><i className="far fa-heart"></i> {likes}</div>
+                    : <div onClick={this.makeOrTakeALike}><i id='liked' className="fas fa-heart"></i> {likes}</div>}
+                <div><i className="far 2"></i></div>
+                <p><strong>{poster_name}</strong> {caption} <em>{hashtag}</em></p>
 
             </>
         )

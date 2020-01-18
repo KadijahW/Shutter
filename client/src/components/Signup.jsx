@@ -94,7 +94,7 @@ class SignUp extends React.Component{
                     required = "required"/>
                     <br/>
                     <button id="createButton"> Create Account </button>
-                 <Link to = "/"><button className="log-in">Log In</button></Link>
+                    <Link to = "/"><button id = "createButton">Login</button></Link>
 
                 </form>
             </div>
@@ -105,4 +105,4 @@ class SignUp extends React.Component{
     
 }
 
-export default SignUp
+export default SignUp;

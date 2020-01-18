@@ -1,6 +1,8 @@
 import React from 'react';
 import Picture from './Picture';
 import Masonry from 'react-masonry-component';
+import axios from 'axios';
+
 
 const masonryOptions = {
     transitionDuration: 0
@@ -14,20 +16,87 @@ const imagesLoadedOptions = { background: '.my-bg-image-el' }
 class PictureDisplay extends React.Component {
     constructor(props) {
         super()
+        console.log(props, "propssssss")
         this.state = {
-            username: props.username
+            username: props.username,
+            hashtags: {},
+            comments: {}
         }
     }
 
-    // popState = (props) => {
-    //     console.log(props)
-    // }
-    // componentDidMount() {
-    //     this.popState()
-    // }
+    
+
+    getComments = async () => {
+        let obj = {}
+        // let objArr = [];
+        try {    
+            const res = await axios.get(`http://localhost:3001/comments`);
+            let comments = res.data.body;
+            console.log("CommentsSsSsSs", comments)
+            for(let i of comments) {
+                obj[i.comment_id] = i;
+            }
+            this.setState({
+                comments: obj
+            })
+            console.log("Commentssssss", this.state.comments)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    getHashtags = async () => {
+        let obj = {};
+        try{
+            let response = await axios.get(`http://localhost:3001/hashtags/`);
+            let results = response.data.body
+            console.log("LOOK AT THIS", results)
+            for(let tag of results) {
+                obj[tag.image_id] = tag.hashtag
+            }
+            this.setState({
+                hashtags: obj
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    componentDidMount() {
+        this.getComments();
+        this.getHashtags();
+    }
+
     render() {
-        const { username } = this.state
+        const { username, comments, hashtags } = this.state
+         
+        console.log(comments, "Comments", hashtags)
+        console.log(this.props.pictures, "PICTURESSSSSS PETE")
         const childElements = this.props.pictures.map(function (element) {
+            console.log(element, "ELEMENT")
+          
+            
+                let tags = [];
+                let commentsThings = [];
+                for (let i in hashtags) {
+                    console.log("YOU NEED TO LOOK HERE", i, element.id)
+                    // console.log(i, "hashtag i")
+                    if(i == element.id) {
+                        // console.log("YOU NEED TO LOOK HERE", i, element.id)
+                        tags.push(`#${hashtags[i]} `)
+                    }
+                }
+                console.log(tags)
+                for (let i in comments) {
+                    // console.log("Comments stuff", comments.i)
+                    if(comments[i].image_id === element.id) {
+                        console.log("COMMENTS ID", i)
+                        commentsThings.push(`${comments[i].commentors_name}: ${comments[i].comment}`)
+                    }
+                } 
+                // console.log("COMMENTS", commentsThings)
+          
             let height = ''
             let width = ''
             if (element.id % 2 === 0) {
@@ -48,12 +117,9 @@ class PictureDisplay extends React.Component {
             // )
             // let height = element.id % 2 === 0 ? 300 : 200;
 
-            console.log(height)
+            // console.log(height)
             return (
-                // <li className="image-element-class">
-                //     <img src={element.image_url} />
-                // </li>
-                // <picture className='pictureDisplay'>
+                <div>
                     <Picture url={element.image_url}
                         id={element.id}
                         key={element.id}
@@ -62,9 +128,14 @@ class PictureDisplay extends React.Component {
                         poster_name={element.poster_name}
                         caption={element.caption}
                         height={height}
+                        comments = {comments}
 
                     />
-                // </picture>
+
+                    <p>{tags}</p>
+                    <p>{commentsThings}</p>
+                </div>
+
 
             );
         });
@@ -87,45 +158,7 @@ class PictureDisplay extends React.Component {
 
         );
     }
+
 }
-
+            
 export default PictureDisplay;
-
-
-
-// const PictureDisplay = (props) => {
-//     let properHashtag = [];
-//     let filteredHashtag = "";
-//     return (
-//         props.pictures.map((picture) => {
-
-//             const breakpointColumnsObj = {
-//                 default: 4,
-//                 1100: 3,
-//                 700: 2,
-//                 500: 1
-//             };
-//             return (
-//                 <div id='picture'>
-//                     <Masonry
-//                         breakpointCols={breakpointColumnsObj}
-//                         className="my-masonry-grid"
-//                         columnClassName="my-masonry-grid_column">
-//                         <Picture url={picture.image_url}
-//                             id={picture.id}
-//                             key={picture.id}
-//                             alt={picture.alt}
-//                             username={props.username}
-//                             poster_name={picture.poster_name}
-//                             caption={picture.caption}
-//                             hashtag={filteredHashtag}
-//                         />
-//                     </Masonry>
-//                 </div>
-//             )
-//         }
-//         )
-//     )
-// }
-
-// export default PictureDisplay;

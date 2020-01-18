@@ -19,7 +19,9 @@ class Profile extends React.Component {
             tags: "",
             profileImage: "",
             hideNewImage: true,
-            comments: []
+            comments: [], 
+            checkbox: false,
+            alt: ""
         }
     }
     getAllUserPictures = async () => {
@@ -71,10 +73,6 @@ class Profile extends React.Component {
 
     }
 
-
-
-
-
     handleCaption = (e) => {
         this.setState({
             caption: e.target.value
@@ -118,8 +116,6 @@ class Profile extends React.Component {
         }
     }
 
-
-
     handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -127,6 +123,7 @@ class Profile extends React.Component {
         console.log(data)
         data.append("image", this.state.imageFile)
         console.log(data)
+
         try {
             const res = await axios.post('http://localhost:3001/upload', data)
             console.log(res.data)
@@ -143,6 +140,24 @@ class Profile extends React.Component {
 
     changeProfileImage = async (e) => {
         const { username, imageURL } = this.state;
+
+        try{ 
+          const res = await axios.post('http://localhost:3001/upload', data)
+          console.log(res.data)
+          this.setState({
+            imageURL: res.data.imageUrl,
+            message: "Image uploaded!"
+          })
+
+          this.imgToDatabase();
+        }catch (err){ 
+          console.error(err)
+        }
+      }
+
+      changeProfileImage = async (e) => {
+        const {username, imageURL} = this.state;
+
         try {
             const res = await axios.patch('http://localhost:3001/images', { username: username, image_url: imageURL })
         } catch (error) {
@@ -201,7 +216,17 @@ class Profile extends React.Component {
         })
         // console.log(hashtags)
     }
-
+    selectAlt = (event) => {
+        const { checkbox } = this.state
+        this.setState({
+            checkbox: !checkbox
+        })
+    }
+    handleAltChange = (event) => {
+        this.setState({
+            alt: event.target.value
+        })
+    }
 
     render() {
         return (
@@ -211,6 +236,7 @@ class Profile extends React.Component {
                     handleSubmitProfile = {this.handleSubmitProfile}
                     handleFileInput = {this.handleFileInput}
                 /> */}
+
                 <div className="header">
                     <div className="profileHeader">
                         <img id="profileImg"
@@ -246,6 +272,37 @@ class Profile extends React.Component {
                         comments={this.state.comments}
                     />
                 </div>
+
+                <img 
+                    src={this.state.profileImage}
+                    width='300px'
+                    height='300px'
+                />
+                <form id="newImageForm" onSubmit={this.handleSubmitProfile}>
+                    <input type="file" onChange={this.handleFileInput} required/>
+                    <input type="submit" value="Upload"/>
+                </form>
+                
+                <h1>Welcome {this.props.userName}</h1>
+                <form onSubmit={this.handleSubmit}>
+                    <input type="file" onChange={this.handleFileInput} required/>
+                 <input type="text" placeholder ="caption" onChange={this.handleCaption}></input>
+                 <input type="text" placeholder="tags" onChange={this.handleTags}></input>
+                    <label htmlFor='alt'> Add alternate text<input name='alt' type='checkbox' value='checked' onChange={this.selectAlt} /></label>
+                    {this.state.checkbox ?
+                        <input name='altText' type='text' placeholder='Add Alt text' onChange={this.handleAltChange} required /> :
+                        null}
+                    <input type="submit" value="Upload"/>
+                </form>
+                <p>{this.state.message}</p>
+                {/* <button onClick={this.getAllUserPictures}
+                >get picture</button> */}
+                <PictureDisplay pictures={this.state.pictures} 
+                    hashtags={this.state.hashtags}
+                    username = {this.state.username}
+                    comments = {this.state.comments}
+                />
+
             </div>
         )
 

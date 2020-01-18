@@ -1,12 +1,18 @@
-
+/* #root{
+  background-color: #5BB2B1;
+} */
 #homepage{
   margin: auto;
   width: 90%;
   /* border: 3px solid #73AD21; */
+  background-color: white;
+
 } 
 .my-gallery-class{
   margin: auto;
-    width: 100%;
+    width: 90%;
+    /* background-color: #5BB2B1; */
+    background-color: #5BB2B1;
 }
 img:hover{
   z-index: -999;
@@ -26,16 +32,16 @@ img:hover{
 } */
 @media only screen and (max-width: 700px){
 img{
-  height: 400px;
-  width: 425px;
-  /* height: 4900px;
-  width: 425px; */
+  height: 300px;
+  width: 300px;
+
 }
 #homepage{
   margin: auto;
   width: 100%;
     display: inline-flex;
     flex-wrap: wrap;
+    text-align: center;
 } 
 #pictures{
   align-content: center;
@@ -45,14 +51,25 @@ img{
     width: 67%;
 }
 }
-/* @media only screen and (max-width: 990px){
-  /* img{
-    height: 400px;
-    width: 425px;
+ /* @media only screen and (max-width: 990px){
+   img{
+     height: 400px;
+   width: 500px;
+    
+  } 
+
+  #homepage{
+    margin: auto;
+    width: 100%;
+      display: inline-flex;
+      flex-wrap: wrap;
+      text-align: center;
+  } 
+  #pictures{
+    align-content: center;
+  }
+  .my-gallery-class{
+    margin: auto;
+      width: 67%;
+  }
   } */
-  /* #homepage{ */
-    /* margin: auto; */
-    /* width: 100%; */
-    /* border: 3px solid #73AD21; */
-  /* }  */
-  /* } */ 

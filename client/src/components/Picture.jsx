@@ -34,6 +34,7 @@ class Picture extends React.Component {
 
         const { username, poster_name, caption, hashtag, id, url, alt, height } = this.state
         console.log("picture", hashtag)
+        console.log(this.props.tags)
 
         return (
             <div id='pictures' >
@@ -45,9 +46,8 @@ class Picture extends React.Component {
                     height={`${height}px`}//'300px'
                 />
 
-                <Interactions username={username} poster_name={poster_name} caption={caption} id={id} hashtag={hashtag} comments={this.props.comments} />
+                <Interactions username={username} poster_name={poster_name} caption={caption} id={id} tags={this.props.tags} comments={this.props.comments} />
             </div>
-
         )
     }
 }

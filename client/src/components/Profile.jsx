@@ -70,10 +70,6 @@ class Profile extends React.Component {
 
     }
 
-    
-
-  
-
     handleCaption = (e) => {
         this.setState({
             caption: e.target.value 
@@ -116,9 +112,6 @@ class Profile extends React.Component {
             console.log(error)
         }
     }
-
-    
-
     handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -139,10 +132,6 @@ class Profile extends React.Component {
           console.error(err)
         }
       }
-
-
-
-      
 
       changeProfileImage = async (e) => {
         const {username, imageURL} = this.state;
@@ -232,8 +221,8 @@ class Profile extends React.Component {
                     <input type="submit" value="Upload"/>
                 </form>
                 <p>{this.state.message}</p>
-                <button onClick={this.getAllUserPictures}
-                >get picture</button>
+                {/* <button onClick={this.getAllUserPictures}
+                >get picture</button> */}
                 <PictureDisplay pictures={this.state.pictures} 
                     hashtags={this.state.hashtags}
                     username = {this.state.username}

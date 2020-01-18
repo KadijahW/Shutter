@@ -11,6 +11,20 @@ class Search extends React.Component {
             searched: props.searched
         }
     }
+    handleSearchChange = (event) => {
+        this.setState({
+            search: event.target.value
+        })
+
+    }
+    handleSearchSubmit = (event) => {
+        event.preventDefault()
+        const { search, searched } = this.state;
+        this.setState({
+            searched: search
+        })
+        
+    }
     searchImages = async () => {
         const {searched } = this.state
         console.log(searched)
@@ -25,14 +39,22 @@ class Search extends React.Component {
             console.log(error, `not found`)
         }
     }
-    componentDidMount = () => {
+    componentDidUpdate = () => {
         this.searchImages()
     }
     render() {
         const { pictures } = this.state
         return (
-            <p>pictures</p>
-            // <PictureDisplay pictures = {pictures}/>
+            <>
+              <form onSubmit={this.handleSearchSubmit}>
+                    <label htmlFor='search'> Search
+                    <input name='search' type='text' placeholder='Search' onChange={this.handleSearchChange} />
+                    </label>
+
+                </form>
+            // <p>pictures</p>
+            <PictureDisplay pictures = {pictures}/>
+            </>
         )
     }
 }

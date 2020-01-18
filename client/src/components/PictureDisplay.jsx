@@ -25,16 +25,16 @@ class PictureDisplay extends React.Component {
         }
     }
 
-    
+
 
     getComments = async () => {
         let obj = {}
         // let objArr = [];
-        try {    
+        try {
             const res = await axios.get(`http://localhost:3001/comments`);
             let comments = res.data.body;
             console.log("CommentsSsSsSs", comments)
-            for(let i of comments) {
+            for (let i of comments) {
                 obj[i.comment_id] = i;
             }
             this.setState({
@@ -49,11 +49,11 @@ class PictureDisplay extends React.Component {
 
     getHashtags = async () => {
         let obj = {};
-        try{
+        try {
             let response = await axios.get(`http://localhost:3001/hashtags/`);
             let results = response.data.body
             console.log("LOOK AT THIS", results)
-            for(let tag of results) {
+            for (let tag of results) {
                 obj[tag.image_id] = tag.hashtag
             }
             this.setState({
@@ -68,38 +68,37 @@ class PictureDisplay extends React.Component {
         this.getComments();
         this.getHashtags();
     }
-
+    // componentDidUpdate(){
+    //     this.getHashtags()
+    // }
     render() {
         const { username, comments, hashtags } = this.state
-         
-        console.log(comments, "Comments", hashtags)
-        console.log(this.props.pictures, "PICTURESSSSSS PETE")
+
+        // console.log(comments, "Comments", hashtags)
+        // console.log(this.props.pictures, "PICTURESSSSSS PETE")
         const childElements = this.props.pictures.map(function (element) {
-            console.log(element, "ELEMENT")
-          
-            
-                let tags = [];
-                let commentsThings = [];
-                for (let i in hashtags) {
-                    console.log("YOU NEED TO LOOK HERE", i, element.id)
-                    // console.log(i, "hashtag i")
-                    if(i == element.id) {
-                        // console.log("YOU NEED TO LOOK HERE", i, element.id)
-                        tags.push(`#${hashtags[i]} `)
-                    }
+            // console.log(element, "ELEMENT")
+
+            let tags = [];
+            let commentsThings = [];
+            for (let i in hashtags) {
+                // console.log("YOU NEED TO LOOK HERE", i, element.id)
+                // console.log(i, "hashtag i")
+                if (i == element.id) {
+                    // console.log("YOU NEED TO LOOK HERE", i, element.id)
+                    tags.push(`#${hashtags[i]} `)
                 }
-                console.log(tags)
-                for (let i in comments) {
-                    // console.log("Comments stuff", comments.i)
-                    if(comments[i].image_id === element.id) {
-                        console.log("COMMENTS ID", i)
-                        commentsThings.push(`${comments[i].commentors_name}: ${comments[i].comment}`)
-                    }
-                } 
-                // console.log("COMMENTS", commentsThings)
-          
+            }
+            console.log(tags)
+            for (let i in comments) {
+                // console.log("Comments stuff", comments.i)
+                if (comments[i].image_id === element.id) {
+                    // console.log("COMMENTS ID", i)
+                    commentsThings.push(`${comments[i].commentors_name}: ${comments[i].comment}`)
+                }
+            }
+
             let height = ''
-            let width = ''
             if (element.id % 2 === 0) {
                 height = 250
             }
@@ -116,9 +115,6 @@ class PictureDisplay extends React.Component {
             else {
                 height = 600
             }
-            // let height = element.id % 2 === 0 ? 300 : 200;
-
-            // console.log(height)
             return (
                 <div>
                     <Picture url={element.image_url}
@@ -129,8 +125,9 @@ class PictureDisplay extends React.Component {
                         poster_name={element.poster_name}
                         caption={element.caption}
                         height={height}
-                        comments = {comments}
-
+                        comments={comments}
+                        tags={tags}
+                        commentsThings={commentsThings}
                     />
 
                     <p>{tags}</p>
@@ -160,5 +157,5 @@ class PictureDisplay extends React.Component {
     }
 
 }
-            
+
 export default PictureDisplay;

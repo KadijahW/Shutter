@@ -1,9 +1,5 @@
-/* .fa-heart{
-    margin-left: -20px;
-} */
 .interaction:hover #heart{
     color: red;
-
 }
 .heart{
     display: inline-block;
@@ -21,8 +17,6 @@
     right: 0;
 }
 .interaction:hover{
-    /* background-color: greenyellow; */
-    /* margin-top: -4px; */
     display: visible;
         position: absolute;
         bottom: 52px;

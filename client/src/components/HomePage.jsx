@@ -4,7 +4,6 @@ import { Route, Link, Switch } from "react-router-dom";
 import axios from "axios"
 import PictureDisplay from "./PictureDisplay";
 import './CSS/HomePage.css';
-import Search from './Search';
 
 
 class HomePage extends React.Component {
@@ -48,10 +47,7 @@ class HomePage extends React.Component {
         this.setState({
             pictures: newArr
         })
-
     }
-
-
     handleFileInput = (event) => {
         const { pictures, imageFile } = this.state
         this.setState({
@@ -91,25 +87,19 @@ class HomePage extends React.Component {
                 imageURL: res.data.imageUrl,
                 message: "Image uploaded!"
             })
-
             this.imgToDatabase(id);
-
         } catch (err) {
             console.error(err)
         }
         this.setState({
             id: parseInt(id) + 1
         })
-
-
     }
     postHashtag = async (id) => {
         const { uploadedHashtag } = this.state
         try {
             const res = await axios.post('http://localhost:3001/hashtags/upload', { hashtag: uploadedHashtag, image_id: id })
             this.getAllPictures()
-
-
         } catch (error) {
             console.log(error)
         }
@@ -130,12 +120,10 @@ class HomePage extends React.Component {
             checkbox: !checkbox
         })
     }
-
     componentDidMount() {
         // console.log('mounted')
         this.countImage()
         this.getAllPictures()
-
     }
     componentDidUpdate() {
         // console.log('updated')
@@ -165,10 +153,6 @@ class HomePage extends React.Component {
         console.log("HOME PAGE", hashtags, "COMMENTS", comments, pictures)
         return (
             <div>
-                <Link to="/profile">Profile</Link>
-                {/* <form>
-                    <input
-                </form> */}
                 <h1>Welcome {username}</h1>
                 <h3>{this.props.email}</h3>
                 <form onSubmit={this.handleSubmit}>

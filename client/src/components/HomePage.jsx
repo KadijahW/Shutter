@@ -95,7 +95,7 @@ class HomePage extends React.Component {
             // console.log(res.data)
             this.setState({
                 imageURL: res.data.imageUrl,
-                message: "Image uploaded!"
+                // message: "Image uploaded!"
             })
 
             this.imgToDatabase(id);

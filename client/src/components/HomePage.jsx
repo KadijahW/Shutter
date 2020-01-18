@@ -13,7 +13,7 @@ class HomePage extends React.Component {
         this.state = {
             username: props.userName,
             pictures: [],
-            hashtags: [],
+            hashtags: {},
             imageFile: null,
             uploadedCaption: '',
             uploadedHashtag: '',
@@ -23,12 +23,11 @@ class HomePage extends React.Component {
             search: '',
             searched: '',
             id: 0,
-            likes: ''
+            likes: '',
+            comments: {}
 
         }
     }
-
-
     getAllPictures = async () => {
         const { pictures, hashtags } = this.state
         let arr = [];
@@ -40,35 +39,18 @@ class HomePage extends React.Component {
         arr = response.data.body
         console.log(arr)
         arr.map((picture) => {
-            this.getHashtags(picture.id)
+            // this.getHashtags(picture.id)
             // this.getLikes(picture.id)
             newArr = [...newArr, picture]
 
         })
-        // console.log(newArr)
+        console.log(newArr, "PICS ARRAY")
         this.setState({
             pictures: newArr
         })
 
-        this.getHashtags()
-        // this.getLikes()
-        // PFiorentino@project.com
     }
-    getHashtags = async () => {
-        const { hashtags, pictures } = this.state
-        let arr = [];
-        // console.log(pictures)
-        for (let i = 0; i < pictures.length; i++) {
-            let response = await axios.get(`http://localhost:3001/hashtags/image/${pictures[i].id}`);
-            let results = response.data.body
-            // console.log(results)
-            arr.push(results)
-        }
-        this.setState({
-            hashtags: arr
-        })
-        // console.log(hashtags)
-    }
+
 
     handleFileInput = (event) => {
         const { pictures, imageFile } = this.state
@@ -126,8 +108,10 @@ class HomePage extends React.Component {
         try {
             const res = await axios.post('http://localhost:3001/hashtags/upload', { hashtag: uploadedHashtag, image_id: id })
             this.getAllPictures()
-        } catch (err) {
-            console.log(err)
+
+
+        } catch (error) {
+            console.log(error)
         }
     }
     handleCaptionChange = (event) => {
@@ -176,35 +160,15 @@ class HomePage extends React.Component {
             console.log(err)
         }
     }
-    handleSearchChange = (event) => {
-        this.setState({
-            search: event.target.value
-        })
-
-    }
-    handleSearchSubmit = (event) => {
-        event.preventDefault()
-        const { search, searched } = this.state;
-        this.setState({
-            searched: search
-        })
-
-    }
     render() {
-        const { checkbox, username, hashtags, pictures, searched } = this.state
-        console.log(searched)
+        const { checkbox, username, hashtags, pictures, comments } = this.state
+        console.log("HOME PAGE", hashtags, "COMMENTS", comments, pictures)
         return (
             <div>
-                {/* <Link to="/profile">Profile</Link> */}
-
-                <form onSubmit={this.handleSearchSubmit}>
-                    <label htmlFor='search'> Search
-                    <input name='search' type='text' placeholder='Search' onChange={this.handleSearchChange} />
-                    </label>
-                            <Link to={`/search/`}><input type='submit' value='Search' /></Link>
-                    
-                </form>
-
+                <Link to="/profile">Profile</Link>
+                {/* <form>
+                    <input
+                </form> */}
                 <h1>Welcome {username}</h1>
                 <h3>{this.props.email}</h3>
                 <form onSubmit={this.handleSubmit}>
@@ -222,17 +186,14 @@ class HomePage extends React.Component {
                 </form>
                 {/* <button onClick={this.getAllPictures}>get picture</button> */}
                 <div id='homepage'>
-                    <PictureDisplay pictures={pictures}
-                        hashtags={hashtags}
+                    <PictureDisplay
+                        pictures={pictures}
                         username={username}
                     />
                 </div>
-
             </div>
         )
-
     }
-
 }
 
-export default HomePage
+export default HomePage;

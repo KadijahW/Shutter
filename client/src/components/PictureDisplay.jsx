@@ -1,7 +1,7 @@
 import React from 'react';
 import Picture from './Picture';
 import Masonry from 'react-masonry-component';
-import './CSS/HomePage.css';
+import axios from 'axios';
 
 
 const masonryOptions = {
@@ -17,15 +17,89 @@ class PictureDisplay extends React.Component {
     constructor(props) {
         console.log(`PROPS`, props)
         super()
+        console.log(props, "propssssss")
         this.state = {
-            username: props.username
+            username: props.username,
+            hashtags: {},
+            comments: {}
         }
     }
-    render() {
-        const { username } = this.state
-        const childElements = this.props.pictures.map(function (element) {
 
-            let height = '';
+    
+
+    getComments = async () => {
+        let obj = {}
+        // let objArr = [];
+        try {    
+            const res = await axios.get(`http://localhost:3001/comments`);
+            let comments = res.data.body;
+            console.log("CommentsSsSsSs", comments)
+            for(let i of comments) {
+                obj[i.comment_id] = i;
+            }
+            this.setState({
+                comments: obj
+            })
+            console.log("Commentssssss", this.state.comments)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    getHashtags = async () => {
+        let obj = {};
+        try{
+            let response = await axios.get(`http://localhost:3001/hashtags/`);
+            let results = response.data.body
+            console.log("LOOK AT THIS", results)
+            for(let tag of results) {
+                obj[tag.image_id] = tag.hashtag
+            }
+            this.setState({
+                hashtags: obj
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    componentDidMount() {
+        this.getComments();
+        this.getHashtags();
+    }
+
+    render() {
+        const { username, comments, hashtags } = this.state
+         
+        console.log(comments, "Comments", hashtags)
+        console.log(this.props.pictures, "PICTURESSSSSS PETE")
+        const childElements = this.props.pictures.map(function (element) {
+            console.log(element, "ELEMENT")
+          
+            
+                let tags = [];
+                let commentsThings = [];
+                for (let i in hashtags) {
+                    console.log("YOU NEED TO LOOK HERE", i, element.id)
+                    // console.log(i, "hashtag i")
+                    if(i == element.id) {
+                        // console.log("YOU NEED TO LOOK HERE", i, element.id)
+                        tags.push(`#${hashtags[i]} `)
+                    }
+                }
+                console.log(tags)
+                for (let i in comments) {
+                    // console.log("Comments stuff", comments.i)
+                    if(comments[i].image_id === element.id) {
+                        console.log("COMMENTS ID", i)
+                        commentsThings.push(`${comments[i].commentors_name}: ${comments[i].comment}`)
+                    }
+                } 
+                // console.log("COMMENTS", commentsThings)
+          
+            let height = ''
+            let width = ''
             if (element.id % 2 === 0) {
                 height = 250
             }
@@ -44,22 +118,25 @@ class PictureDisplay extends React.Component {
             }
             // let height = element.id % 2 === 0 ? 300 : 200;
 
+            // console.log(height)
             return (
-                // <li className="image-element-class">
-                //     <img src={element.image_url} />
-                // </li>
-                // <picture className='pictureDisplay'>
-                <Picture url={element.image_url}
-                    id={element.id}
-                    key={element.id}
-                    alt={element.alt}
-                    username={username}
-                    poster_name={element.poster_name}
-                    caption={element.caption}
-                    height={height}
+                <div>
+                    <Picture url={element.image_url}
+                        id={element.id}
+                        key={element.id}
+                        alt={element.alt}
+                        username={username}
+                        poster_name={element.poster_name}
+                        caption={element.caption}
+                        height={height}
+                        comments = {comments}
 
-                />
-                // </picture>
+                    />
+
+                    <p>{tags}</p>
+                    <p>{commentsThings}</p>
+                </div>
+
 
             );
         });
@@ -81,6 +158,7 @@ class PictureDisplay extends React.Component {
 
         );
     }
-}
 
+}
+            
 export default PictureDisplay;

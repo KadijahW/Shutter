@@ -111,7 +111,7 @@ class HomePage extends React.Component {
             })
     this.imgToDatabase(id);
 
-            message: "Image uploaded!"
+            // message: "Image uploaded!"
         }
 
      catch(err) {

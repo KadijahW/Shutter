@@ -139,7 +139,7 @@ class Profile extends React.Component {
     }
 
     changeProfileImage = async (e) => {
-        const { username, imageURL } = this.state;
+        const { username, imageURL, data } = this.state;
 
         try{ 
           const res = await axios.post('http://localhost:3001/upload', data)
@@ -272,36 +272,6 @@ class Profile extends React.Component {
                         comments={this.state.comments}
                     />
                 </div>
-
-                <img 
-                    src={this.state.profileImage}
-                    width='300px'
-                    height='300px'
-                />
-                <form id="newImageForm" onSubmit={this.handleSubmitProfile}>
-                    <input type="file" onChange={this.handleFileInput} required/>
-                    <input type="submit" value="Upload"/>
-                </form>
-                
-                <h1>Welcome {this.props.userName}</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="file" onChange={this.handleFileInput} required/>
-                 <input type="text" placeholder ="caption" onChange={this.handleCaption}></input>
-                 <input type="text" placeholder="tags" onChange={this.handleTags}></input>
-                    <label htmlFor='alt'> Add alternate text<input name='alt' type='checkbox' value='checked' onChange={this.selectAlt} /></label>
-                    {this.state.checkbox ?
-                        <input name='altText' type='text' placeholder='Add Alt text' onChange={this.handleAltChange} required /> :
-                        null}
-                    <input type="submit" value="Upload"/>
-                </form>
-                <p>{this.state.message}</p>
-                {/* <button onClick={this.getAllUserPictures}
-                >get picture</button> */}
-                <PictureDisplay pictures={this.state.pictures} 
-                    hashtags={this.state.hashtags}
-                    username = {this.state.username}
-                    comments = {this.state.comments}
-                />
 
             </div>
         )

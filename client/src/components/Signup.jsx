@@ -1,5 +1,5 @@
 import React from "react"
-import {Route} from 'react-router-dom'
+import {Route, Link} from 'react-router-dom'
 import './CSS/Signup.css';
 import axios from "axios";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -24,8 +24,19 @@ class SignUp extends React.Component{
             let res = await axios.post(url, {username: username, email: email})
             console.log(res)
             
-            this.props.history.push("/")
-            this.props.signUp(this.state.username, this.state.email)
+            let exist = res.data.message.name 
+
+            console.log(exist)
+
+            if (exist === "error"){
+                window.alert("Email or Username Already Exist")
+            }else{
+                this.props.history.push("/")
+                this.props.signUp(this.state.username, this.state.email)
+            }
+
+            
+
 
 
         }catch(err){
@@ -94,6 +105,8 @@ class SignUp extends React.Component{
                     required = "required"/>
                     <br/>
                     <button id="createButton"> Create Account </button>
+                    <Link to = "/"><button id = "createButton">Login</button></Link>
+
                 </form>
             </div>
         )
@@ -103,4 +116,4 @@ class SignUp extends React.Component{
     
 }
 
-export default SignUp
+export default SignUp;

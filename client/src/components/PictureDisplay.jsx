@@ -4,7 +4,6 @@ import Masonry from 'react-masonry-component';
 import axios from 'axios';
 
 
-
 const masonryOptions = {
     transitionDuration: 0
 };

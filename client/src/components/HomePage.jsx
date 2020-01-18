@@ -1,5 +1,5 @@
 import React from "react"
-import Profile from "./Profile"
+// import Profile from "./Profile"
 import { Route, Link, Switch } from "react-router-dom";
 import axios from "axios"
 import PictureDisplay from "./PictureDisplay";
@@ -191,15 +191,21 @@ class HomePage extends React.Component {
         //     }
         // }
 
+        
+
         render() {
             const { checkbox, username, hashtags, pictures, comments } = this.state
             console.log("HOME PAGE", hashtags, "COMMENTS", comments, pictures)
             return (
                 <div>
-                    <Link to="/profile">Profile</Link>
+                    {/* <Link to="/profile">Profile</Link> */}
                     {/* <form>
                     <input
                 </form> */}
+                    <form>
+                        <input type="text" placeholder="Search..."></input>
+                        <button type="Submit">Search</button>
+                    </form>
                     <h1>Welcome {username}</h1>
                     <h3>{this.props.email}</h3>
                     <form onSubmit={this.handleSubmit}>

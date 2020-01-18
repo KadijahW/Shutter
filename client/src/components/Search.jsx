@@ -7,52 +7,78 @@ class Search extends React.Component {
         console.log(props)
         super()
         this.state = {
+            id: [],
             pictures: [],
-            searched: props.searched
+            searched: '', 
+            search:''
         }
     }
     handleSearchChange = (event) => {
+        console.log(event.target.value)
         this.setState({
             search: event.target.value
         })
 
     }
-    handleSearchSubmit = (event) => {
+   
+    searchImages = async (event) => {
         event.preventDefault()
-        const { search, searched } = this.state;
-        this.setState({
-            searched: search
-        })
-        
-    }
-    searchImages = async () => {
-        const {searched } = this.state
-        console.log(searched)
+        const {search, id } = this.state
         let word = `pianoMan`
         try{
-        let pictures = await axios.get(`http://localhost:3001/hashtags/${word}`);
-        console.log(pictures.data.body)
+        let res = await axios.get(`http://localhost:3001/hashtags/${search}`);
+        console.log(res.data.body)
+        let newArr = []
+        res.data.body.map((pic) => {
+            newArr = [...newArr, pic.image_id]
+        })
         this.setState({
-            pictures: pictures.data.body
-        })}
+            id: newArr
+        })
+        this.getSinglePicture()
+    }
         catch(error){
             console.log(error, `not found`)
         }
     }
-    componentDidUpdate = () => {
-        this.searchImages()
+    getSinglePicture = async () => {
+        // event.preventDefault()
+        const { id } = this.state;
+        for(let i = 0; i<id.length; i++){
+            let arr = [];
+            let newArr = [];
+            try {
+             const res = await axios.get(`http://localhost:3001/images/${id[i]}`)
+             console.log(res.data.payload)
+        arr=res.data.payload
+        arr.map((picture) => {
+            newArr = [...newArr, picture]
+        })
+    
+        console.log('newArr', newArr)
+        this.setState({
+            pictures: newArr
+        })
+            } catch (error) {
+             console.log(error)
+            }
+        }
     }
+    // componentDidMount = () => {
+    //     // this.getSinglePicture()
+    // }
+
     render() {
         const { pictures } = this.state
         return (
             <>
-              <form onSubmit={this.handleSearchSubmit}>
+              <form onSubmit={this.searchImages}>
                     <label htmlFor='search'> Search
                     <input name='search' type='text' placeholder='Search' onChange={this.handleSearchChange} />
                     </label>
-
+                    <input type='submit' value='Search' onSubmit = {this.searchImages}></input>
                 </form>
-            // <p>pictures</p>
+            {/* // <p>pictures</p> */}
             <PictureDisplay pictures = {pictures}/>
             </>
         )

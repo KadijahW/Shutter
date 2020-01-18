@@ -69,7 +69,7 @@ class AuthForm extends React.Component {
                         <div className="information">
                             <div className="signInicon">
                                 <i id="lock" className="fas fa-user-lock"></i>
-                                <h1> Sign In </h1>
+                                <h1 id="signinLogo"> Sign In </h1>
                             </div>
 
                             <form id="login" onSubmit={this.handleSubmit}>

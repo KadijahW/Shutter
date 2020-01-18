@@ -284,7 +284,7 @@ class Profile extends React.Component {
                 </form>
                 
                 <h1>Welcome {this.props.userName}</h1>
-                <form onSubmit={this.handleSubmit}>
+                {/* <form onSubmit={this.handleSubmit}>
                     <input type="file" onChange={this.handleFileInput} required/>
                  <input type="text" placeholder ="caption" onChange={this.handleCaption}></input>
                  <input type="text" placeholder="tags" onChange={this.handleTags}></input>
@@ -293,10 +293,9 @@ class Profile extends React.Component {
                         <input name='altText' type='text' placeholder='Add Alt text' onChange={this.handleAltChange} required /> :
                         null}
                     <input type="submit" value="Upload"/>
-                </form>
+                </form> */}
                 <p>{this.state.message}</p>
-                {/* <button onClick={this.getAllUserPictures}
-                >get picture</button> */}
+        
                 <PictureDisplay pictures={this.state.pictures} 
                     hashtags={this.state.hashtags}
                     username = {this.state.username}

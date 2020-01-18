@@ -1,7 +1,8 @@
 import React from "react"
-import {Route, Link, Switch} from "react-router-dom";
+import { Route, Link, Switch } from "react-router-dom";
 import axios from "axios"
 import PictureDisplay from "./PictureDisplay";
+import './CSS/Profile.css';
 
 
 class Profile extends React.Component {
@@ -42,19 +43,19 @@ class Profile extends React.Component {
         this.setState({
             hashtags: newArr
         })
-        
+
     }
     handleFileInput = (event) => {
         console.log("file changed")
         console.dir(event.target)
         this.setState({
-          imageFile: event.target.files[0]
+            imageFile: event.target.files[0]
         })
-      }
-    
+    }
+
     getProfileImage = async () => {
         try {
-            const {username} = this.state
+            const { username } = this.state
             console.log("profile pic function")
             console.log(username)
 
@@ -70,41 +71,41 @@ class Profile extends React.Component {
 
     }
 
-    
 
-  
+
+
 
     handleCaption = (e) => {
         this.setState({
-            caption: e.target.value 
+            caption: e.target.value
         })
     }
 
     handleTags = (e) => {
         this.setState({
-            tags: e.target.value 
+            tags: e.target.value
         })
     }
 
     imgToDatabase = async () => {
         console.log("hi")
-        const {username, imageURL, caption} = this.state; 
+        const { username, imageURL, caption } = this.state;
         console.log(username, imageURL, caption)
         try {
             console.log("hi try")
-            const res = await axios.post('http://localhost:3001/images/upload', {poster_name:username, image_url: imageURL, caption: caption})
+            const res = await axios.post('http://localhost:3001/images/upload', { poster_name: username, image_url: imageURL, caption: caption })
             console.log(res.data.body)
-        }catch (err) {
+        } catch (err) {
             console.log(err)
         }
     }
 
     getComments = async () => {
         let obj = {}
-        try {    
+        try {
             const res = await axios.get(`http://localhost:3001/comments`);
             let comments = res.data.body;
-            for(let i of comments) {
+            for (let i of comments) {
                 obj[i.comment_id] = i;
             }
             this.setState({
@@ -117,70 +118,66 @@ class Profile extends React.Component {
         }
     }
 
-    
+
 
     handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         const data = new FormData();
         console.log(data)
         data.append("image", this.state.imageFile)
         console.log(data)
-        try{ 
-          const res = await axios.post('http://localhost:3001/upload', data)
-          console.log(res.data)
-          this.setState({
-            imageURL: res.data.imageUrl,
-            message: "Image uploaded!"
-          })
-
-          this.imgToDatabase();
-        }catch (err){ 
-          console.error(err)
-        }
-      }
-
-
-
-      
-
-      changeProfileImage = async (e) => {
-        const {username, imageURL} = this.state;
         try {
-            const res = await axios.patch('http://localhost:3001/images', {username: username, image_url: imageURL})
+            const res = await axios.post('http://localhost:3001/upload', data)
+            console.log(res.data)
+            this.setState({
+                imageURL: res.data.imageUrl,
+                message: "Image uploaded!"
+            })
+
+            this.imgToDatabase();
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    changeProfileImage = async (e) => {
+        const { username, imageURL } = this.state;
+        try {
+            const res = await axios.patch('http://localhost:3001/images', { username: username, image_url: imageURL })
         } catch (error) {
             console.log(error)
         }
     }
 
-      handleSubmitProfile = async (e) => {
+    handleSubmitProfile = async (e) => {
         e.preventDefault();
-    
+
         const data = new FormData();
         console.log(data)
         data.append("image", this.state.imageFile)
         console.log(data)
-        try{ 
-          const res = await axios.post('http://localhost:3001/upload', data)
-          console.log(res.data, "THIS")
-          this.setState({
-            imageURL: res.data.imageUrl,
-            profileImage: res.data.imageUrl,
-            message: "Image uploaded!"
-          })
+        try {
+            const res = await axios.post('http://localhost:3001/upload', data)
+            console.log(res.data, "THIS")
+            this.setState({
+                imageURL: res.data.imageUrl,
+                profileImage: res.data.imageUrl,
+                // message: "Image uploaded!"
+            })
 
-          this.changeProfileImage();
-        }catch (err){ 
-          console.error(err)
+            this.changeProfileImage();
+        } catch (err) {
+            console.error(err)
         }
-      }
-       
-      componentDidMount() {
+    }
+
+    componentDidMount() {
         this.getAllUserPictures();
         this.getComments();
         this.getProfileImage();
-      }
-      componentDidUpdate() {
+    }
+    componentDidUpdate() {
         console.log('updated')
         // this.changeProfileImage()
     }
@@ -192,12 +189,12 @@ class Profile extends React.Component {
         for (let i = 0; i < pictures.length; i++) {
             let response = await axios.get(`http://localhost:3001/hashtags/image/${pictures[i].id}`);
             let results = response.data.body
-            for(let tag of results) {
+            for (let tag of results) {
                 obj[tag.hashtag] = pictures[i].id
             }
-            
+
             console.log(obj, "HASHTAGS results")
-            
+
         }
         this.setState({
             hashtags: obj
@@ -208,38 +205,47 @@ class Profile extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="profileContainer">
                 {/* <ProfilePicture
                     username = {this.state.username}
                     handleSubmitProfile = {this.handleSubmitProfile}
                     handleFileInput = {this.handleFileInput}
                 /> */}
-                <img 
-                    src={this.state.profileImage}
-                    width='300px'
-                    height='300px'
-                />
-                <form id="newImageForm" onSubmit={this.handleSubmitProfile}>
-                    <input type="file" onChange={this.handleFileInput} required/>
-                    <input type="submit" value="Upload"/>
-                </form>
-                
-                <h1>Welcome {this.props.userName}</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="file" onChange={this.handleFileInput} required/>
-                    <input type="text" placeholder ="caption" onChange={this.handleCaption}></input>
-                    <input type="text" placeholder="tags" onChange={this.handleTags}></input>
-                    <input type="submit" value="Upload"/>
-                </form>
-                <p>{this.state.message}</p>
-                <button onClick={this.getAllUserPictures}
-                >get picture</button>
-                <PictureDisplay pictures={this.state.pictures} 
-                    hashtags={this.state.hashtags}
-                    username = {this.state.username}
-                    comments = {this.state.comments}
-                />
+                <div className="header">
+                    <div className="profileHeader">
+                        <img
+                            src={this.state.profileImage}
+                            width='300px'
+                            height='300px'
+                        />
 
+                    </div>
+
+                    <div className="welcomeHeader">
+                    <h1 className="userName">Welcome {this.props.userName}</h1>
+                    <form id="newImageForm" onSubmit={this.handleSubmitProfile}>
+                        <input type="file" onChange={this.handleFileInput} required />
+                        <input type="submit" value="Upload" />
+                    </form>
+                    </div>
+
+                    <p>{this.state.message}</p>
+                    {/* <button onClick={this.getAllUserPictures}
+                    >get picture</button> */}
+                </div>
+                <form className="picUpload" onSubmit={this.handleSubmit}>
+                    <input type="file" onChange={this.handleFileInput} required />
+                    <input type="text" placeholder="caption" onChange={this.handleCaption}></input>
+                    <input type="text" placeholder="tags" onChange={this.handleTags}></input>
+                    <input type="submit" value="Upload" />
+                </form>
+                <div className="imageGallery">
+                    <PictureDisplay pictures={this.state.pictures}
+                        hashtags={this.state.hashtags}
+                        username={this.state.username}
+                        comments={this.state.comments}
+                    />
+                </div>
             </div>
         )
 

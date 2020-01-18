@@ -9,9 +9,10 @@
    /* margin: 0px; */
 }
 #homepage{
-  margin: auto;
+  margin-top: 10%;
   width: 90%;
   /* border: 3px solid #73AD21; */
+  background-color: white;
 } 
 /* img{
   margin-top: -16px;

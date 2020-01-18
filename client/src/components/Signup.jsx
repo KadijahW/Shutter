@@ -24,8 +24,19 @@ class SignUp extends React.Component{
             let res = await axios.post(url, {username: username, email: email})
             console.log(res)
             
-            this.props.history.push("/")
-            this.props.signUp(this.state.username, this.state.email)
+            let exist = res.data.message.name 
+
+            console.log(exist)
+
+            if (exist === "error"){
+                window.alert("Email or Username Already Exist")
+            }else{
+                this.props.history.push("/")
+                this.props.signUp(this.state.username, this.state.email)
+            }
+
+            
+
 
 
         }catch(err){

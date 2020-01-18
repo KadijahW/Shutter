@@ -99,6 +99,7 @@ class HomePage extends React.Component {
                 })
 
                 this.imgToDatabase(id);
+                this.getAllPictures();
 
             } catch (err) {
                 console.error(err)

@@ -5,7 +5,21 @@ const db = require('./db.js');
 /* HELPERS */
 const log = console.log;
 
-
+const getAllHashtags = async (req, res, next) => {
+    try {
+        let image_id = parseInt(req.params.image_id)
+        const selectQuery = `SELECT * FROM hashtags;`;
+        let response = await db.any(selectQuery, image_id);
+        res.json({
+            status: "success",
+            message: "hashtags retrieved",
+            body: response
+        });
+    }
+    catch (error) {
+        message: `There was an error!`
+    }
+}
 
 
 /* MIDDLEWARE */
@@ -56,7 +70,8 @@ const addHashtag = async (req, res, next) => {
 }
 
 /* ROUTES */
-router.get("/image/:image_id", allHashtags); // gets all hashtags
+router.get("/", getAllHashtags)
+router.get("/image/:image_id", allHashtags); 
 router.get("/:word", singleHashtagAllPhotos); // get all  photos for one hashtag
 router.post("/upload/", addHashtag);
 

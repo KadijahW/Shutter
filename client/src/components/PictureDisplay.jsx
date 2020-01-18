@@ -40,7 +40,7 @@ class PictureDisplay extends React.Component {
             this.setState({
                 comments: obj
             })
-            console.log("Commentssssss", this.state.comments)
+            // console.log("Commentssssss", this.state.comments)
 
         } catch (error) {
             console.log(error)
@@ -52,9 +52,9 @@ class PictureDisplay extends React.Component {
         try {
             let response = await axios.get(`http://localhost:3001/hashtags/`);
             let results = response.data.body
-            console.log("LOOK AT THIS", results)
-            for (let tag of results) {
-                obj[tag.image_id] = tag.hashtag
+            // console.log("LOOK AT THIS", results)
+            for(let tag of results) {
+                obj[tag.hashtag] = tag.image_id
             }
             this.setState({
                 hashtags: obj
@@ -77,27 +77,32 @@ class PictureDisplay extends React.Component {
         // console.log(comments, "Comments", hashtags)
         // console.log(this.props.pictures, "PICTURESSSSSS PETE")
         const childElements = this.props.pictures.map(function (element) {
-            // console.log(element, "ELEMENT")
-
-            let tags = [];
-            let commentsThings = [];
-            for (let i in hashtags) {
-                // console.log("YOU NEED TO LOOK HERE", i, element.id)
-                // console.log(i, "hashtag i")
-                if (i == element.id) {
-                    // console.log("YOU NEED TO LOOK HERE", i, element.id)
-                    tags.push(`#${hashtags[i]} `)
+            console.log(element, "ELEMENT")
+          
+            
+                let tags = [];
+                let commentsThings = [];
+                // console.log("HASH BOI", hashtags)
+                for (let i in hashtags) {
+                    // console.log("YOU NEED TO LOOK HERE", hashtags[i], element.id)
+                    // console.log(i, "hashtag i")
+                    if(hashtags[i] == element.id) {
+                        // console.log("YOU NEED TO LOOK HERE", i, element.id)
+                        tags.push(`#${i} `)
+                    }
                 }
-            }
-            console.log(tags)
-            for (let i in comments) {
-                // console.log("Comments stuff", comments.i)
-                if (comments[i].image_id === element.id) {
-                    // console.log("COMMENTS ID", i)
-                    commentsThings.push(`${comments[i].commentors_name}: ${comments[i].comment}`)
-                }
-            }
-
+                console.log(tags)
+                for (let i in comments) {
+                    // console.log("Comments stuff", comments.i)
+                    if(comments[i].image_id === element.id) {
+                        console.log("COMMENTS ID", i)
+                        console.log("comments", comments[i])
+                        commentsThings.push(`${comments[i].commentors_name}: ${comments[i].comment}`)
+                    }
+                    console.log("comment things", commentsThings)
+                } 
+                // console.log("COMMENTS", commentsThings)
+          
             let height = ''
             if (element.id % 2 === 0) {
                 height = 250
@@ -131,7 +136,12 @@ class PictureDisplay extends React.Component {
                     />
 
                     <p>{tags}</p>
-                    <p>{commentsThings}</p>
+
+                    {commentsThings.length > 1 ? commentsThings.map(el => {
+                        return (
+                            <p>{el}</p>
+                        )
+                    }) : <p>{commentsThings}</p>}
                 </div>
 
 

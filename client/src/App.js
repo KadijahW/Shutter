@@ -84,10 +84,8 @@ class App extends React.Component {
 
         <div className="App">
           <nav>
-            <Link to="/">Home</Link> {" "}
-            <Menu signOut={this.signOut} />
-            <Link to="/profile">Profile</Link>
-            <Link to='/search'>Search</Link> {" "}
+            {/* <Link to = "/">Shutter</Link> {" "} */}
+            <Menu signOut = {this.signOut}/>
           </nav>
           <Switch>
 

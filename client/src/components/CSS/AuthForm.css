@@ -5,8 +5,6 @@ body {
 }
 
 
-
-
 .container {
     background-image: url(https://premiumbpthemes.com/images/clipart-camera-square-8.png);
     width: 100%;
@@ -94,11 +92,17 @@ body {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: center;
+
     /* border: 0px solid #36152b;
     border-radius: 0%; */
     font-size: 25px;
     margin-left: 30px;
     ;
+}
+
+#signinLogo {
+text-align: center;
 }
 
 @media screen and (max-width: 890px) {

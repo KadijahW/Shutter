@@ -2,12 +2,17 @@
   background-color: #5BB2B1;
 } */
 #homepage{
-  margin: auto;
+  margin-top: 10%;
   width: 90%;
   /* border: 3px solid #73AD21; */
   background-color: white;
+} 
+
+.welcomeDiv {
+  margin-left: 22%;
 
 } 
+
 .my-gallery-class{
   margin: auto;
     width: 90%;
@@ -21,6 +26,7 @@ img:hover{
   color: black;
   font-size: 12px;
   text-align: center
+
 }
 /* img{
   margin-top: -16px;

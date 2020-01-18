@@ -1,0 +1,34 @@
+.profileContainer{
+    margin: auto;
+    width: 90%;
+    background-color: white;
+}
+
+.imageGallery{
+margin: auto;
+width:90%;
+background-color: #5BB2B1;
+}
+
+.header{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    /* margin-top: -20%;
+    margin-left: 25%; */
+}
+
+.picUpload{
+margin-top: 5%;
+margin-left: 5%;
+}
+
+.welcomeHeader{
+    margin-left: 15%;
+}
+#profileImg {
+   
+    border-radius: 50%;
+
+}

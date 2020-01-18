@@ -27,6 +27,7 @@ class HomePage extends React.Component {
 
         }
     }
+
     getAllPictures = async () => {
         const { pictures, hashtags } = this.state
         let arr = [];
@@ -47,6 +48,23 @@ class HomePage extends React.Component {
         this.setState({
             pictures: newArr
         })
+
+
+    }
+
+
+    handleFileInput = (event) => {
+        const { pictures, imageFile } = this.state
+        console.log('file changed')
+        console.log(event.target)
+        this.setState({
+            imageFile: event.target.files[0]
+        })
+        console.log(imageFile)
+    }
+    imgToDatabase = async (id) => {
+        console.log("hi")
+
     }
     handleFileInput = (event) => {
         const { pictures, imageFile } = this.state
@@ -55,13 +73,20 @@ class HomePage extends React.Component {
         })
     }
     imgToDatabase = async (id) => {
+
         const { username, imageURL, uploadedCaption, checkbox, alt } = this.state;
         console.log(username, imageURL, uploadedCaption, checkbox)
         let altText = ''
         if (!checkbox) {
             altText = `${username} uploaded a photo`
+
+            console.log('false', altText)
         } else {
             altText = alt
+
+        } else {
+            altText = alt
+
         }
         try {
             console.log("hi try")
@@ -85,15 +110,38 @@ class HomePage extends React.Component {
             // console.log(res.data)
             this.setState({
                 imageURL: res.data.imageUrl,
+                // message: "Image uploaded!"
+            })
+
+            this.imgToDatabase(id);
+
                 message: "Image uploaded!"
             })
             this.imgToDatabase(id);
+
         } catch (err) {
             console.error(err)
         }
         this.setState({
             id: parseInt(id) + 1
         })
+
+
+    }
+    postHashtag = async (id) => {
+        const { uploadedHashtag } = this.state
+        console.log('id', id)
+        try {
+            const res = await axios.post('http://localhost:3001/hashtags/upload', { hashtag: uploadedHashtag, image_id: id })
+            this.getAllPictures()
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    handleCaptionChange = (event) => {
+        console.log("caption changed", event.target.value)
+
     }
     postHashtag = async (id) => {
         const { uploadedHashtag } = this.state
@@ -110,6 +158,9 @@ class HomePage extends React.Component {
         })
     }
     handleHashtagChange = (event) => {
+
+        console.log("caption changed", event.target.value)
+
         this.setState({
             uploadedHashtag: event.target.value
         })
@@ -120,12 +171,29 @@ class HomePage extends React.Component {
             checkbox: !checkbox
         })
     }
+
+    componentDidMount() {
+
+        console.log('mounted')
+        this.countImage()
+        this.getAllPictures()
+
+
+    }
+    componentDidUpdate() {
+        console.log('updated')
+
+    }
+    handleAltChange = (event) => {
+        console.log('alt text changed', event.target.value)
+
     componentDidMount() {
         // console.log('mounted')
         this.countImage()
         this.getAllPictures()
     }
     handleAltChange = (event) => {
+
         this.setState({
             alt: event.target.value
         })
@@ -144,12 +212,41 @@ class HomePage extends React.Component {
         } catch (err) {
             console.log(err)
         }
-        }
+
     render() {
         const { checkbox, username, hashtags, pictures, comments } = this.state
         console.log("HOME PAGE", hashtags, "COMMENTS", comments, pictures)
         return (
             <div>
+
+                <div className="welcomeDiv">
+                    <h1>Welcome {username}</h1>
+                    {/* <h3>{this.props.email}</h3> */}
+                    <form onSubmit={this.handleSubmit}>
+                        <input type='file' onChange={this.handleFileInput} required />
+                        {/* <br></br> */}
+                        <label htmlFor='caption'>Caption <input name='caption' type='text' placeholder='Enter a caption' onChange={this.handleCaptionChange} /> </label>
+                        {/* <br></br> */}
+                        <label htmlFor='hashtag'>Hashtag <input name='hashtag' type='text' placeholder='Add hashtags' onChange={this.handleHashtagChange} /> </label>
+                        <label htmlFor='alt'> Add alternate text<input name='alt' type='checkbox' value='checked' onChange={this.selectAlt} /></label>
+                        {checkbox ?
+                            <input name='altText' type='text' placeholder='Add Alt text' onChange={this.handleAltChange} required /> :
+                            null}
+                        {/* <br></br> */}
+                        <input type='submit' value='Upload' />
+                    </form>
+                </div>
+                {/* <button onClick={this.getAllPictures}>get picture</button> */}
+                <div id='homepage'>
+                    <PictureDisplay
+                        pictures={pictures}
+                        username={username}
+                    />
+                </div>
+
+            </div>
+        )
+
                 {/* <Link to="/profile">Profile</Link> */}
                 {/* <form>
                     <input
@@ -183,4 +280,8 @@ class HomePage extends React.Component {
     }
 }
 
+
+}
+
 export default HomePage;
+

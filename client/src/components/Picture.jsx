@@ -29,7 +29,8 @@ class Picture extends React.Component {
     }
     render() {
 
-        const { username, poster_name, caption, hashtag, id, url, alt,height } = this.state
+        const { username, poster_name, caption, hashtag, id, url, alt, height } = this.state
+
         console.log("picture", hashtag)
 
         return (
@@ -41,7 +42,8 @@ class Picture extends React.Component {
                     height={`${height}px`}//'300px'
                 />
 
-                <Interactions username={username} poster_name={poster_name} caption={caption} id={id} hashtag={hashtag} />
+                <Interactions username={username} poster_name={poster_name} caption={caption} id={id} hashtag={hashtag} comments={this.props.comments} />
+
             </div>
 
         )

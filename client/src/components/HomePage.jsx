@@ -12,7 +12,7 @@ class HomePage extends React.Component {
         this.state = {
             username: props.userName,
             pictures: [],
-            hashtags: [],
+            hashtags: {},
             imageFile: null,
             uploadedCaption: '',
             uploadedHashtag: "",
@@ -22,7 +22,7 @@ class HomePage extends React.Component {
             search: '',
             id: 0,
             likes: '',
-            comments: []
+            comments: {}
 
         }
     }
@@ -39,39 +39,18 @@ class HomePage extends React.Component {
         arr = response.data.body
         console.log(arr)
         arr.map((picture) => {
-            this.getHashtags(picture.id)
+            // this.getHashtags(picture.id)
             // this.getLikes(picture.id)
             newArr = [...newArr, picture]
 
         })
-        // console.log(newArr)
+        console.log(newArr, "PICS ARRAY")
         this.setState({
             pictures: newArr
         })
-
-        this.getHashtags()
-        // this.getLikes()
-        // PFiorentino@project.com
+        
     }
-    getHashtags = async () => {
-        const { hashtags, pictures } = this.state
-        let obj = {};
-        // console.log(pictures)
-        for (let i = 0; i < pictures.length; i++) {
-            let response = await axios.get(`http://localhost:3001/hashtags/image/${pictures[i].id}`);
-            let results = response.data.body
-            for(let tag of results) {
-                obj[tag.hashtag] = pictures[i].id
-            }
-            
-            // console.log(obj, "HASHTAGS results")
-            
-        }
-        this.setState({
-            hashtags: obj
-        })
-        // console.log(this.state.hashtags, "HASHTAGS")
-    }
+   
 
         handleFileInput = (event) => {
             const { pictures, imageFile } = this.state
@@ -165,7 +144,7 @@ class HomePage extends React.Component {
             console.log('mounted')
             this.countImage()
             this.getAllPictures()
-            this.getComments()
+
 
         }
         componentDidUpdate() {
@@ -194,27 +173,27 @@ class HomePage extends React.Component {
             }
         }
 
-        getComments = async () => {
-            let obj = {}
-            try {    
-                const res = await axios.get(`http://localhost:3001/comments`);
-                let comments = res.data.body;
-                for(let i of comments) {
-                    obj[i.comment_id] = i;
-                }
-                this.setState({
-                    comments: obj
-                })
-                // console.log("Commentssssss", this.state.comments)
+        // getComments = async () => {
+        //     let obj = {}
+        //     try {    
+        //         const res = await axios.get(`http://localhost:3001/comments`);
+        //         let comments = res.data.body;
+        //         for(let i of comments) {
+        //             obj[i.comment_id] = i;
+        //         }
+        //         this.setState({
+        //             comments: obj
+        //         })
+        //         console.log("Commentssssss", this.state.comments)
 
-            } catch (error) {
-                console.log(error)
-            }
-        }
+        //     } catch (error) {
+        //         console.log(error)
+        //     }
+        // }
 
         render() {
             const { checkbox, username, hashtags, pictures, comments } = this.state
-            console.log("HOME PAGE", hashtags)
+            console.log("HOME PAGE", hashtags, "COMMENTS", comments, pictures)
             return (
                 <div>
                     <Link to="/profile">Profile</Link>
@@ -238,10 +217,9 @@ class HomePage extends React.Component {
                     </form>
                     {/* <button onClick={this.getAllPictures}>get picture</button> */}
                     <div id='homepage'>
-                        <PictureDisplay pictures={pictures}
-                            hashtags={hashtags}
-                            username = {username}
-                            comments = {comments}
+                        <PictureDisplay 
+                            pictures= {pictures}
+                            username= {username}
                         />
                     </div>
 

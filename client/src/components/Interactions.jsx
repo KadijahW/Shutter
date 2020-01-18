@@ -13,7 +13,6 @@ class Interactions extends React.Component {
             hashtag: props.hashtag,
             imageId: props.id,
             likes: "",
-            comments: "",
             likeBtnPushed: '',
             width: props.width,
             commentAmount: ' '
@@ -84,9 +83,9 @@ class Interactions extends React.Component {
         return (
             <>
                 <br></br>
-                {likeBtnPushed !== 'add' ? <div onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</div>
-                    : <div onClick={this.makeOrTakeALike}><i id='liked' class="fas fa-heart"></i> {likes}</div>}
-                <div><i class="far 2"></i>Comments:{comments}</div>
+                {likeBtnPushed !== 'add' ? <div onClick={this.makeOrTakeALike}><i className="far fa-heart"></i> {likes}</div>
+                    : <div onClick={this.makeOrTakeALike}><i id='liked' className="fas fa-heart"></i> {likes}</div>}
+                <div><i className="far 2"></i></div>
                 <p><strong>{poster_name}</strong> {caption} <em>{hashtag}</em></p>
 
             </>

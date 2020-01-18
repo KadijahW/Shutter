@@ -107,8 +107,6 @@ class HomePage extends React.Component {
                 // message: "Image uploaded!"
             })
             this.imgToDatabase(id);
-
-            message: "Image uploaded!"
         }
 
         catch (err) {
@@ -118,7 +116,6 @@ class HomePage extends React.Component {
             id: parseInt(id) + 1
         })
     }
-}
 
 postHashtag = async (id) => {
     const { uploadedHashtag } = this.state
@@ -226,6 +223,6 @@ render = () => {
         </div>
     )
 }
-
+}
 
 export default HomePage;

@@ -57,5 +57,23 @@ router.post('/:image_id', async (req, res) => {
     }
 })
 
+router.post('/comment/:image_id/:commentors_name/:comment', async (req,res) =>{
+    try{
+        await db.none(`
+        INSERT INTO comments(image_id, comment ,commentors_name)
+        VALUES($1,$2,$3)`
+        , [req.params.image_id, req.params.comment, req.params.commentors_name])
+        
+        res.json({
+            message: "done"
+        })
+
+    }catch(err){
+        res.json({
+            message: error + "error"
+        })
+    }
+})
+
 
 module.exports = router;

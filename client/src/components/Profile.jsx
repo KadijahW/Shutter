@@ -155,16 +155,6 @@ class Profile extends React.Component {
         }
       }
 
-      changeProfileImage = async (e) => {
-        const {username, imageURL} = this.state;
-
-        try {
-            const res = await axios.patch('http://localhost:3001/images', { username: username, image_url: imageURL })
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     handleSubmitProfile = async (e) => {
         e.preventDefault();
 
@@ -231,12 +221,6 @@ class Profile extends React.Component {
     render() {
         return (
             <div className="profileContainer">
-                {/* <ProfilePicture
-                    username = {this.state.username}
-                    handleSubmitProfile = {this.handleSubmitProfile}
-                    handleFileInput = {this.handleFileInput}
-                /> */}
-
                 <div className="header">
                     <div className="profileHeader">
                         <img id="profileImg"
@@ -250,7 +234,7 @@ class Profile extends React.Component {
                     <div className="welcomeHeader">
                     <h1 className="userName">Welcome {this.props.userName}</h1>
                     <form id="newImageForm" onSubmit={this.handleSubmitProfile}>
-                        <input type="file" onChange={this.handleFileInput} required />
+                        <label htmlFor = 'profile' >New Profile Picture<input name = 'profile' type="file" onChange={this.handleFileInput} required /> </label>
                         <input type="submit" value="Upload" />
                     </form>
                     </div>
@@ -259,12 +243,6 @@ class Profile extends React.Component {
                     {/* <button onClick={this.getAllUserPictures}
                     >get picture</button> */}
                 </div>
-                <form className="picUpload" onSubmit={this.handleSubmit}>
-                    <input type="file" onChange={this.handleFileInput} required />
-                    <input type="text" placeholder="caption" onChange={this.handleCaption}></input>
-                    <input type="text" placeholder="tags" onChange={this.handleTags}></input>
-                    <input type="submit" value="Upload" />
-                </form>
                 <div className="imageGallery">
                     <PictureDisplay pictures={this.state.pictures}
                         hashtags={this.state.hashtags}
@@ -272,7 +250,6 @@ class Profile extends React.Component {
                         comments={this.state.comments}
                     />
                 </div>
-
             </div>
         )
 

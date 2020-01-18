@@ -136,7 +136,7 @@ class PictureDisplay extends React.Component {
                     />
 
                     <p>{tags}</p>
-
+                    <strong><p>Comments:</p></strong>
                     {commentsThings.length > 1 ? commentsThings.map(el => {
                         return (
                             <p>{el}</p>

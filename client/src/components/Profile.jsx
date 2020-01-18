@@ -232,7 +232,7 @@ class Profile extends React.Component {
                     </div>
 
                     <div className="welcomeHeader">
-                    <h1 className="userName">Welcome {this.props.userName}</h1>
+                    <h1 className="userName">Welcome, {this.props.userName}!</h1>
                     <form id="newImageForm" onSubmit={this.handleSubmitProfile}>
                         <label htmlFor = 'profile' >New Profile Picture<input name = 'profile' type="file" onChange={this.handleFileInput} required /> </label>
                         <input type="submit" value="Upload" />

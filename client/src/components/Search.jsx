@@ -1,6 +1,7 @@
 import React from 'react';
 import PictureDisplay from './PictureDisplay';
 import axios from 'axios';
+import './CSS/Search.css';
 
 class Search extends React.Component {
     constructor(props) {
@@ -72,10 +73,10 @@ class Search extends React.Component {
         const { pictures } = this.state
         return (
             <>
-              <form onSubmit={this.searchImages}>
-                    <label htmlFor='search'> Search
+              <form id="searchForm" onSubmit={this.searchImages}>
+                    <h1>Search by Hashtags</h1>
                     <input name='search' type='text' placeholder='Search' onChange={this.handleSearchChange} />
-                    </label>
+                    
                     <input type='submit' value='Search' onSubmit = {this.searchImages}></input>
                 </form>
             {/* // <p>pictures</p> */}

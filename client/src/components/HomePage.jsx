@@ -198,7 +198,7 @@ render = () => {
         <div>
 
             <div className="welcomeDiv">
-                <h1>Welcome {username}</h1>
+                <h1>Welcome, {username}!</h1>
                 {/* <h3>{this.props.email}</h3> */}
                 <form onSubmit={this.handleSubmit}>
                     <input type='file' onChange={this.handleFileInput} required />

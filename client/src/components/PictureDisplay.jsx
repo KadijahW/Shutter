@@ -39,7 +39,7 @@ class PictureDisplay extends React.Component {
             this.setState({
                 comments: obj
             })
-            console.log("Commentssssss", this.state.comments)
+            // console.log("Commentssssss", this.state.comments)
 
         } catch (error) {
             console.log(error)
@@ -51,9 +51,9 @@ class PictureDisplay extends React.Component {
         try{
             let response = await axios.get(`http://localhost:3001/hashtags/`);
             let results = response.data.body
-            console.log("LOOK AT THIS", results)
+            // console.log("LOOK AT THIS", results)
             for(let tag of results) {
-                obj[tag.image_id] = tag.hashtag
+                obj[tag.hashtag] = tag.image_id
             }
             this.setState({
                 hashtags: obj
@@ -79,12 +79,13 @@ class PictureDisplay extends React.Component {
             
                 let tags = [];
                 let commentsThings = [];
+                // console.log("HASH BOI", hashtags)
                 for (let i in hashtags) {
-                    console.log("YOU NEED TO LOOK HERE", i, element.id)
+                    // console.log("YOU NEED TO LOOK HERE", hashtags[i], element.id)
                     // console.log(i, "hashtag i")
-                    if(i == element.id) {
+                    if(hashtags[i] == element.id) {
                         // console.log("YOU NEED TO LOOK HERE", i, element.id)
-                        tags.push(`#${hashtags[i]} `)
+                        tags.push(`#${i} `)
                     }
                 }
                 console.log(tags)
@@ -92,8 +93,10 @@ class PictureDisplay extends React.Component {
                     // console.log("Comments stuff", comments.i)
                     if(comments[i].image_id === element.id) {
                         console.log("COMMENTS ID", i)
+                        console.log("comments", comments[i])
                         commentsThings.push(`${comments[i].commentors_name}: ${comments[i].comment}`)
                     }
+                    console.log("comment things", commentsThings)
                 } 
                 // console.log("COMMENTS", commentsThings)
           
@@ -133,7 +136,12 @@ class PictureDisplay extends React.Component {
                     />
 
                     <p>{tags}</p>
-                    <p>{commentsThings}</p>
+
+                    {commentsThings.length > 1 ? commentsThings.map(el => {
+                        return (
+                            <p>{el}</p>
+                        )
+                    }) : <p>{commentsThings}</p>}
                 </div>
 
 

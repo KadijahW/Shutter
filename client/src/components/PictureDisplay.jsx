@@ -5,7 +5,7 @@ import axios from 'axios';
 
 
 const masonryOptions = {
-    transitionDuration: 0
+    transitionDuration: 8
 };
 const style = {
     // backgroundColor: 'tomato',
@@ -15,6 +15,7 @@ const imagesLoadedOptions = { background: '.my-bg-image-el' }
 
 class PictureDisplay extends React.Component {
     constructor(props) {
+        console.log(`PROPS`, props)
         super()
         console.log(props, "propssssss")
         this.state = {
@@ -24,16 +25,16 @@ class PictureDisplay extends React.Component {
         }
     }
 
-    
+
 
     getComments = async () => {
         let obj = {}
         // let objArr = [];
-        try {    
+        try {
             const res = await axios.get(`http://localhost:3001/comments`);
             let comments = res.data.body;
             console.log("CommentsSsSsSs", comments)
-            for(let i of comments) {
+            for (let i of comments) {
                 obj[i.comment_id] = i;
             }
             this.setState({
@@ -48,7 +49,7 @@ class PictureDisplay extends React.Component {
 
     getHashtags = async () => {
         let obj = {};
-        try{
+        try {
             let response = await axios.get(`http://localhost:3001/hashtags/`);
             let results = response.data.body
             // console.log("LOOK AT THIS", results)
@@ -67,12 +68,14 @@ class PictureDisplay extends React.Component {
         this.getComments();
         this.getHashtags();
     }
-
+    // componentDidUpdate(){
+    //     this.getHashtags()
+    // }
     render() {
         const { username, comments, hashtags } = this.state
-         
-        console.log(comments, "Comments", hashtags)
-        console.log(this.props.pictures, "PICTURESSSSSS PETE")
+
+        // console.log(comments, "Comments", hashtags)
+        // console.log(this.props.pictures, "PICTURESSSSSS PETE")
         const childElements = this.props.pictures.map(function (element) {
             console.log(element, "ELEMENT")
           
@@ -101,26 +104,22 @@ class PictureDisplay extends React.Component {
                 // console.log("COMMENTS", commentsThings)
           
             let height = ''
-            let width = ''
             if (element.id % 2 === 0) {
                 height = 250
             }
             else if (element.id % 3 === 0) {
-                height = 350
+                height = 275
             }
             else if (element.id % 5 === 0) {
+                height = 300
+            } else if (element.id % 7 === 0) {
                 height = 450
-            } else if (element.id % 7 === 0){
+            } else if (element.id % 9 === 0) {
                 height = 575
-            } else{
+            }
+            else {
                 height = 600
             }
-            // else(
-            //     height = 500
-            // )
-            // let height = element.id % 2 === 0 ? 300 : 200;
-
-            // console.log(height)
             return (
                 <div>
                     <Picture url={element.image_url}
@@ -131,8 +130,9 @@ class PictureDisplay extends React.Component {
                         poster_name={element.poster_name}
                         caption={element.caption}
                         height={height}
-                        comments = {comments}
-
+                        comments={comments}
+                        tags={tags}
+                        commentsThings={commentsThings}
                     />
 
                     <p>{tags}</p>
@@ -150,23 +150,22 @@ class PictureDisplay extends React.Component {
 
 
         return (
-                <Masonry
-                    className={'my-gallery-class'} // default ''
-                    elementType={'ul'} // default 'div'
-                    options={masonryOptions} // default {}
-                    disableImagesLoaded={false} // default false
-                    updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
-                    imagesLoadedOptions={imagesLoadedOptions} // default {}
-                    style={style}
-                >
-                    
-                        {childElements}
-                   
-                </Masonry>
+            <Masonry
+                className={'my-gallery-class'} // default ''
+                elementType={'ul'} // default 'div'
+                options={masonryOptions} // default {}
+                disableImagesLoaded={false} // default false
+                updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
+                imagesLoadedOptions={imagesLoadedOptions} // default {}
+                style={style}
+            >
+                {childElements}
+
+            </Masonry>
 
         );
     }
 
 }
-            
+
 export default PictureDisplay;

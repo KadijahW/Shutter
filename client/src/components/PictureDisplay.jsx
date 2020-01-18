@@ -63,17 +63,20 @@ class PictureDisplay extends React.Component {
         }
     }
 
+
     componentDidMount() {
         this.getComments();
         this.getHashtags();
     }
+
+  
 
     render() {
         const { username, comments, hashtags } = this.state
          
         console.log(comments, "Comments", hashtags)
         console.log(this.props.pictures, "PICTURESSSSSS PETE")
-        const childElements = this.props.pictures.map(function (element) {
+        const childElements = this.props.pictures.map( element => {
             console.log(element, "ELEMENT")
           
             
@@ -131,11 +134,12 @@ class PictureDisplay extends React.Component {
                         poster_name={element.poster_name}
                         caption={element.caption}
                         height={height}
-                        comments = {comments}
-
-                    />
-
+                        // comments = {comments}
+                        getComments = {this.getComments} 
+                        />
                     <p>{tags}</p>
+
+
 
                     {commentsThings.length > 1 ? commentsThings.map(el => {
                         return (

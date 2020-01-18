@@ -34,7 +34,8 @@ class Picture extends React.Component {
         const { username, poster_name, caption, hashtag, id, url, alt, height, width, hovered } = this.state
         return (
             <div id='pictures' >
-                <img onClick={this.getSinglePicture}
+                {/* <img onClick={this.getSinglePicture} */} 
+                <img
                     src={url}
                     alt={alt}
                     width={`360px`}

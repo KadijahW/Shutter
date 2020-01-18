@@ -15,18 +15,12 @@ const imagesLoadedOptions = { background: '.my-bg-image-el' }
 
 class PictureDisplay extends React.Component {
     constructor(props) {
+        console.log(`PROPS`, props)
         super()
         this.state = {
             username: props.username
         }
     }
-
-    // popState = (props) => {
-    //     console.log(props)
-    // }
-    // componentDidMount() {
-    //     this.popState()
-    // }
     render() {
         const { username } = this.state
         const childElements = this.props.pictures.map(function (element) {
@@ -49,6 +43,7 @@ class PictureDisplay extends React.Component {
                 height = 600
             }
             // let height = element.id % 2 === 0 ? 300 : 200;
+
             return (
                 // <li className="image-element-class">
                 //     <img src={element.image_url} />

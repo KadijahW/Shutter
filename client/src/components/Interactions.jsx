@@ -5,6 +5,7 @@ import './CSS/Interactions.css'
 
 class Interactions extends React.Component {
     constructor(props) {
+        console.log(`interactions`, props)
         super()
         this.state = {
             username: props.username,
@@ -90,9 +91,9 @@ class Interactions extends React.Component {
 
         return (
             <>
-                <div className='interaction' onMouseOver={this.imgHoverOn}>
-                    {likeBtnPushed !== 'add' ? <div  className='interaction' className='heart'> <p onClick={this.makeOrTakeALike}><i class="far fa-heart"></i> {likes}</p></div>
-                        : <div  className='interaction' className='heart'><p onClick={this.makeOrTakeALike}><i id='heart' class="fas fa-heart"></i> {likes}</p></div>}
+                <div className='interaction' onMouseOver={this.imgHoverOn} onClick = {this.props.getSinglePictures}>
+                    {likeBtnPushed !== 'add' ? <div  className='interaction' onClick={this.makeOrTakeALike} className='heart'> <p ><i class="far fa-heart"></i> {likes}</p></div>
+                        : <div  className='interaction' onClick={this.makeOrTakeALike} className='heart'><p ><i id='heart' class="fas fa-heart"></i> {likes}</p></div>}
                 </div>
                 <p style={{ width: `300px` }}><strong>{poster_name}</strong> {caption} <em>{this.props.hashtag}</em></p>
             </>

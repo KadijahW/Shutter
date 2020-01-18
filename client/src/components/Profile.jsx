@@ -213,7 +213,7 @@ class Profile extends React.Component {
                 /> */}
                 <div className="header">
                     <div className="profileHeader">
-                        <img
+                        <img id="profileImg"
                             src={this.state.profileImage}
                             width='300px'
                             height='300px'

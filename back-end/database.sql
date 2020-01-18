@@ -67,6 +67,7 @@ INSERT INTO comments (comment, image_id, commentors_name)
     VALUES ('His cousin is better.', 1, 'PeterFiorentino'),
            ('You just like him cause hes cute', 2, 'JonathanFagan'),
            ('Can you do this to me?', 3, 'BriahanaMaugé'),
-           ('Who is this?', 4, 'KadijahWilson');
+           ('Who is this?', 4, 'KadijahWilson'),
+           ('Lebron >>>>', 1, 'KadijahWilson');
 
 SELECT * FROM users;

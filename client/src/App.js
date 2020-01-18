@@ -82,8 +82,11 @@ class App extends React.Component {
       return(
         <div className = "App">
           <nav>
+
             <Link to = "/">Shutter</Link> {" "}
             <Menu signOut = {this.signOut} />
+
+  
           </nav>
             <Switch>
               

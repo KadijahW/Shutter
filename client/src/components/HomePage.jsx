@@ -196,7 +196,7 @@ class HomePage extends React.Component {
             console.log("HOME PAGE", hashtags, "COMMENTS", comments, pictures)
             return (
                 <div>
-                    <Link to="/profile">Profile</Link>
+                    {/* <Link to="/profile">Profile</Link> */}
                     {/* <form>
                     <input
                 </form> */}

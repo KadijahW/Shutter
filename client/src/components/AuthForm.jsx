@@ -3,7 +3,7 @@ import { Link, Route, Switch } from 'react-router-dom'
 // import HomePage from './HomePage'
 import axios from "axios"
 import './CSS/AuthForm.css';
-
+import camera from '../images/Shutter.png'
 
 
 class AuthForm extends React.Component {
@@ -59,12 +59,9 @@ class AuthForm extends React.Component {
         return (
             <div className="container">
 
-                {/* <img id="camera" src="https://premiumbpthemes.com/images/clipart-camera-square-8.png" alt="camera"/> */}
+                <img id="camera" src={camera} alt="camera" />
 
-                <div className="AppTwo">
-                </div>
-
-                <div className="formContainer">
+                {/* <div className="formContainer"> */}
                     <div className="form">
                         <div className="information">
                             <div className="signInicon">
@@ -84,7 +81,7 @@ class AuthForm extends React.Component {
                         <p>{message}</p>
                     </div>
                 </div>
-            </div>
+            // </div>
         )
     }
 }

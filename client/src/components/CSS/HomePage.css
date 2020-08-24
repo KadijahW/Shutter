@@ -39,12 +39,13 @@ img:hover{
 } */
 /* #homepage{
     display: inline-flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 700px
 } */
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 631px){ 
 img{
   height: 300px;
   width: 300px;
+ 
 
 }
 #homepage{

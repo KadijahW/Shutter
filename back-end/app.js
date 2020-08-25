@@ -35,6 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '../client/build')));
 
 app.use('/user', userRouter)
 app.use('/images', imageRouter)
@@ -52,6 +53,9 @@ app.post('/upload',upload.single("image"),(req,res,next) =>{
     })
 } )
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../frontend/build/index.html"))
+})
 
 
 module.exports = app;

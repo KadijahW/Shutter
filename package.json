@@ -1,0 +1,21 @@
+{
+  "name": "shutter",
+  "version": "1.0.0",
+  "description": "For this project, in a group, build a Full-Stack Application with Express.js, PostgreSQL and React where users can upload and view images.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd back-end && npm start", 
+    "heroku-prebuild": "cd back-end && npm install && cd ../client && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KadijahW/Shutter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KadijahW/Shutter/issues"
+  },
+  "homepage": "https://github.com/KadijahW/Shutter#readme"
+}
